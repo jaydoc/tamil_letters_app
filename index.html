@@ -24,15 +24,40 @@
       justify-content: center;
     }
     .app { width: 100%; max-width: 900px; padding: 1.5rem 1rem 2rem; }
-    header { text-align: center; margin-bottom: 1.5rem; }
-    .title { font-size: 2.2rem; margin: 0; }
-    .subtitle { margin: 0.25rem 0 0.75rem; color: var(--text-muted); font-size: 0.95rem; }
+
+    header { text-align: center; margin-bottom: 1.2rem; }
+    .title { font-size: 2.2rem; margin: 0; cursor: default; }
+    .subtitle { margin: 0.15rem 0 0.4rem; color: var(--text-muted); font-size: 0.95rem; }
     .pill {
       display: inline-flex; align-items: center; gap: 0.4rem;
       background: rgba(255,255,255,0.7); padding: 0.3rem 0.9rem;
       border-radius: 999px; font-size: 0.8rem; color: var(--text-muted);
       box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
+    .top-header-row {
+      display: flex; justify-content: center; gap: 0.5rem;
+      align-items: center; flex-wrap: wrap; margin-top: 0.4rem;
+    }
+    .greeting {
+      font-size: 0.9rem; color: var(--text-muted);
+    }
+    .stars-pill {
+      font-size: 0.9rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(255, 215, 0, 0.16);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: inline-flex; align-items: center; gap: 0.25rem;
+    }
+    .stars-pill.pop {
+      animation: star-pop 0.3s ease-out;
+    }
+    @keyframes star-pop {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
     .tabs {
       display: flex; gap: 0.5rem; background: rgba(255,255,255,0.7);
       padding: 0.25rem; border-radius: 999px;
@@ -51,6 +76,7 @@
       transform: translateY(-1px);
       box-shadow: 0 4px 10px rgba(114,103,240,0.35);
     }
+
     .section-title { margin: 0 0 0.5rem; font-size: 1.2rem; text-align: center; }
     .hint { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.75rem; }
@@ -69,6 +95,7 @@
     }
     .card-main { font-size: 2.1rem; margin-bottom: 0.3rem; }
     .card-sub { font-size: 0.9rem; opacity: 0.7; }
+
     .controls {
       display: flex; justify-content: center; gap: 0.5rem;
       margin-bottom: 0.75rem; flex-wrap: wrap;
@@ -84,9 +111,11 @@
       box-shadow: 0 4px 12px rgba(114,103,240,0.4);
     }
     .btn-ghost { background: rgba(255,255,255,0.9); }
+
     .feedback { text-align: center; font-size: 0.95rem; margin-top: 0.5rem; min-height: 1.2rem; }
     .feedback.ok { color: #0a8a4b; }
     .feedback.err { color: #c0392b; }
+
     .trace-wrapper {
       max-width: 560px; margin: 0 auto;
       background: rgba(255,255,255,0.9);
@@ -104,6 +133,7 @@
       background: rgba(114,103,240,0.08); font-size: 0.8rem;
     }
     .mode-toggle input { accent-color: var(--accent); }
+
     .trace-canvas-wrap {
       position: relative; border-radius: 1.2rem; overflow: hidden;
       background: repeating-linear-gradient(
@@ -112,6 +142,7 @@
       border: 1px solid #dde0ff;
     }
     canvas#traceCanvas { width: 100%; height: 280px; touch-action: none; display: block; }
+
     .trace-info {
       display: flex; justify-content: space-between; align-items: center;
       font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;
@@ -131,6 +162,7 @@
       padding: 0.4rem;
       resize: vertical;
     }
+
     .activities-wrapper {
       max-width: 700px;
       margin: 0 auto;
@@ -145,8 +177,56 @@
       border: none;
       min-height: 420px;
     }
+
     footer { margin-top: 1.4rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
     .small { font-size: 0.8rem; }
+
+    /* Name modal */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1rem 1.2rem 1rem;
+      max-width: 320px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      text-align: center;
+    }
+    .modal h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+    }
+    .modal p {
+      margin: 0 0 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .modal input {
+      width: 100%;
+      padding: 0.45rem 0.6rem;
+      border-radius: 0.6rem;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 0.7rem;
+    }
+    .modal button {
+      border-radius: 999px;
+      border: none;
+      padding: 0.45rem 1.1rem;
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .hidden { display: none !important; }
+
     @media (max-width: 480px) {
       .title { font-size: 1.8rem; }
       canvas#traceCanvas { height: 230px; }
@@ -157,8 +237,12 @@
   <div class="app">
     <header>
       <div class="pill"><span>தமிழ்</span> • <span>for kids</span></div>
-      <h1 class="title">Tamil Kids Letters</h1>
-      <p class="subtitle">Tap, trace, sort vowels, and play games.</p>
+      <h1 class="title" id="appTitle">Tamil Kids Letters</h1>
+      <p class="subtitle" id="subtitle">Tap, trace, sort vowels, and play games.</p>
+      <div class="top-header-row">
+        <div class="greeting" id="greeting"></div>
+        <div class="stars-pill" id="stars-pill">⭐ <span id="stars-count">0</span></div>
+      </div>
     </header>
 
     <nav class="tabs">
@@ -172,9 +256,19 @@
     <main id="content"></main>
 
     <footer>
-      <div>For parents & kids: use the tabs. For teachers: use Teacher mode inside Trace.</div>
+      <div>Kids: use the tabs to learn and play. Creators: hidden tools let you refine strokes.</div>
       <div class="small">Add MP3 audio files in <code>audio/</code> to enable sounds.</div>
     </footer>
+  </div>
+
+  <!-- Child name modal -->
+  <div id="nameModal" class="modal-backdrop hidden">
+    <div class="modal">
+      <h2>வணக்கம்! 😊</h2>
+      <p>What is your name?</p>
+      <input type="text" id="kidNameInput" placeholder="Type your name..." />
+      <button id="kidNameSaveBtn">Let's start</button>
+    </div>
   </div>
 
   <!-- external stroke data -->
@@ -242,6 +336,89 @@
       }
     }
 
+    // ---- Kid profile + stars + creator mode ----
+    let kidName = (localStorage.getItem("kidName") || "").trim();
+    let starCount = parseInt(localStorage.getItem("kidStars") || "0", 10) || 0;
+    let creatorMode = false;
+    let currentTab = "uyir";
+
+    const contentEl = document.getElementById("content");
+    const tabButtons = document.querySelectorAll(".tab-btn");
+
+    function updateKidUI() {
+      const greetingEl = document.getElementById("greeting");
+      const subtitleEl = document.getElementById("subtitle");
+      const starsCountEl = document.getElementById("stars-count");
+      if (kidName) {
+        greetingEl.textContent = `Hi, ${kidName}! Let’s learn Tamil.`;
+        subtitleEl.textContent = "Tap, trace, and play games with your letters.";
+      } else {
+        greetingEl.textContent = "";
+        subtitleEl.textContent = "Tap, trace, sort vowels, and play games.";
+      }
+      starsCountEl.textContent = starCount;
+    }
+
+    function bumpStarsUI() {
+      const pill = document.getElementById("stars-pill");
+      if (!pill) return;
+      pill.classList.remove("pop");
+      void pill.offsetWidth; // force reflow
+      pill.classList.add("pop");
+    }
+
+    function addStar() {
+      starCount += 1;
+      localStorage.setItem("kidStars", String(starCount));
+      updateKidUI();
+      bumpStarsUI();
+    }
+
+    function initKidProfile() {
+      if (kidName) {
+        updateKidUI();
+        return;
+      }
+      const modal = document.getElementById("nameModal");
+      const input = document.getElementById("kidNameInput");
+      const btn = document.getElementById("kidNameSaveBtn");
+
+      modal.classList.remove("hidden");
+      input.value = "";
+      input.focus();
+
+      function saveName() {
+        const v = input.value.trim();
+        if (!v) return;
+        kidName = v;
+        localStorage.setItem("kidName", kidName);
+        updateKidUI();
+        modal.classList.add("hidden");
+      }
+
+      btn.onclick = saveName;
+      input.onkeydown = (e) => {
+        if (e.key === "Enter") saveName();
+      };
+    }
+
+    // Hidden creator mode: double-click title
+    const appTitle = document.getElementById("appTitle");
+    appTitle.addEventListener("dblclick", () => {
+      creatorMode = !creatorMode;
+      if (creatorMode) {
+        console.log("Creator mode ON");
+      } else {
+        console.log("Creator mode OFF");
+      }
+      // re-render current tab so trace UI updates
+      if (currentTab === "uyir") renderLetters(UYIR, "Uyir Ezhuthukkal");
+      else if (currentTab === "mei") renderLetters(MEI, "Mei Ezhuthukkal");
+      else if (currentTab === "trace") renderTrace();
+      else if (currentTab === "game") renderGame();
+      else if (currentTab === "activities") renderActivities();
+    });
+
     // ---- Audio helper ----
     const audioCache = {};
     function playSound(audioId) {
@@ -256,15 +433,13 @@
       });
     }
 
-    // ---- UI base ----
-    const contentEl = document.getElementById("content");
-    const tabButtons = document.querySelectorAll(".tab-btn");
-
+    // ---- Tabs ----
     tabButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         tabButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         const tab = btn.getAttribute("data-tab");
+        currentTab = tab;
         if (tab === "uyir") renderLetters(UYIR, "Uyir Ezhuthukkal");
         else if (tab === "mei") renderLetters(MEI, "Mei Ezhuthukkal");
         else if (tab === "trace") renderTrace();
@@ -281,7 +456,11 @@
 
       const hint = document.createElement("div");
       hint.className = "hint";
-      hint.textContent = "Tap a letter to hear the sound.";
+      if (kidName) {
+        hint.textContent = `${kidName}, tap a letter to hear its sound.`;
+      } else {
+        hint.textContent = "Tap a letter to hear the sound.";
+      }
 
       const grid = document.createElement("div");
       grid.className = "grid";
@@ -321,7 +500,11 @@
 
       const hint = document.createElement("div");
       hint.className = "hint";
-      hint.textContent = "Tap 🔊 to hear a sound. Then tap the matching letter.";
+      if (kidName) {
+        hint.textContent = `${kidName}, tap 🔊 to hear a sound, then tap the matching letter.`;
+      } else {
+        hint.textContent = "Tap 🔊 to hear a sound. Then tap the matching letter.";
+      }
 
       const controls = document.createElement("div");
       controls.className = "controls";
@@ -364,17 +547,17 @@
       grid.innerHTML = "";
       options.forEach(letter => {
         const btn = document.createElement("button");
-          btn.className = "card";
-          btn.addEventListener("click", () => handleGuess(letter));
-          const main = document.createElement("div");
-          main.className = "card-main";
-          main.textContent = letter.tamil;
-          const sub = document.createElement("div");
-          sub.className = "card-sub";
-          sub.textContent = letter.translit;
-          btn.appendChild(main);
-          btn.appendChild(sub);
-          grid.appendChild(btn);
+        btn.className = "card";
+        btn.addEventListener("click", () => handleGuess(letter));
+        const main = document.createElement("div");
+        main.className = "card-main";
+        main.textContent = letter.tamil;
+        const sub = document.createElement("div");
+        sub.className = "card-sub";
+        sub.textContent = letter.translit;
+        btn.appendChild(main);
+        btn.appendChild(sub);
+        grid.appendChild(btn);
       });
     }
 
@@ -397,11 +580,14 @@
       const feedbackEl = document.querySelector(".feedback");
       if (!gameTarget || !feedbackEl) return;
       if (letter.id === gameTarget.id) {
-        feedbackEl.textContent = "✅ சரி! (Correct!)";
+        const namePart = kidName ? `, ${kidName}` : "";
+        feedbackEl.textContent = `✅ சரி${namePart}! You earned a ⭐`;
         feedbackEl.className = "feedback ok";
+        addStar();
         setTimeout(() => newRound(), 800);
       } else {
-        feedbackEl.textContent = "❌ மீண்டும் முயற்சி செய்! (Try again!)";
+        const namePart = kidName ? `, ${kidName}` : "";
+        feedbackEl.textContent = `❌ மீண்டும் முயற்சி செய்${namePart}! (Try again!)`;
         feedbackEl.className = "feedback err";
       }
     }
@@ -420,7 +606,6 @@
       const wrap = document.createElement("div");
       wrap.className = "activities-wrapper";
 
-      // Create iframe container
       const iframe = document.createElement("iframe");
       iframe.src = "https://openbooks.lib.msu.edu/basictamil/wp-admin/admin-ajax.php?action=h5p_embed&id=3";
       iframe.setAttribute("frameborder", "0");
@@ -432,7 +617,6 @@
       contentEl.appendChild(hint);
       contentEl.appendChild(wrap);
 
-      // Inject H5P resizer script once (if not present)
       if (!document.getElementById("h5p-resizer")) {
         const s = document.createElement("script");
         s.id = "h5p-resizer";
@@ -442,17 +626,17 @@
       }
     }
 
-    // ---- Tracing + Teacher mode ----
+    // ---- Tracing + Creator mode for strokes ----
     let traceCanvas, traceCtx;
     let isDrawing = false;
     let lastX = 0, lastY = 0;
     let currentTraceIndex = 0;
-    const TRACE_LIST = UYIR; // later you can change to [...UYIR, ...MEI]
+    const TRACE_LIST = UYIR; // can later expand to [...UYIR, ...MEI]
     let teacherMode = false;
     let recording = false;
-    let recordedStrokes = []; // for current session
+    let recordedStrokes = [];
     let demoRunning = false;
-    let demoSpeed = 0.015; // slower speed for animation (was 0.03)
+    let demoSpeed = 0.015;
 
     function renderTrace() {
       contentEl.innerHTML = "";
@@ -463,7 +647,14 @@
 
       const hint = document.createElement("div");
       hint.className = "hint";
-      hint.textContent = "Kids: watch the pink demo, then trace. Teachers: turn on Teacher mode to record real stroke order.";
+      if (kidName) {
+        hint.textContent = `${kidName}, first watch the pink demo, then trace the letter.`;
+      } else {
+        hint.textContent = "First watch the pink demo, then trace the letter.";
+      }
+      if (creatorMode) {
+        hint.textContent += " (Creator mode: you can record or update strokes.)";
+      }
 
       const wrapper = document.createElement("div");
       wrapper.className = "trace-wrapper";
@@ -478,13 +669,6 @@
       modeToggle.className = "mode-toggle";
       const modeCheckbox = document.createElement("input");
       modeCheckbox.type = "checkbox";
-      modeCheckbox.addEventListener("change", () => {
-        teacherMode = modeCheckbox.checked;
-        demoRunning = false;
-        recording = false;
-        recordedStrokes = [];
-        updateTeacherUI();
-      });
       const modeText = document.createElement("span");
       modeText.textContent = "Teacher mode (record strokes)";
       modeToggle.appendChild(modeCheckbox);
@@ -532,16 +716,15 @@
       recordBtn.id = "record-btn";
       recordBtn.textContent = "⏺ Start recording";
       recordBtn.addEventListener("click", () => {
+        if (!creatorMode) return;
         if (!teacherMode) return;
         if (!recording) {
-          // start
           demoRunning = false;
           recording = true;
           recordedStrokes = [];
           clearCanvas(true);
           recordBtn.textContent = "⏹ Stop & save";
         } else {
-          // stop & save
           recording = false;
           const letterId = getCurrentLetter().id;
           const normalized = recordedStrokes.map(s => smoothStroke(s));
@@ -568,7 +751,7 @@
       const infoRow = document.createElement("div");
       infoRow.className = "trace-info";
       const infoLeft = document.createElement("div");
-      infoLeft.textContent = "Tip: first watch the pink demo, then copy it.";
+      infoLeft.textContent = "Tip: first watch the pink demo, then copy it with your finger.";
       const infoRight = document.createElement("div");
       infoRight.id = "stroke-status";
       infoRight.textContent = "";
@@ -578,7 +761,7 @@
       const exportBox = document.createElement("div");
       exportBox.className = "export-box";
       const exportLabel = document.createElement("div");
-      exportLabel.textContent = "Teacher: this JSON represents all current strokes (file + local). Paste into strokes.js when you're happy:";
+      exportLabel.textContent = "Creator: JSON for all strokes (copy into strokes.js when ready):";
       const exportTextarea = document.createElement("textarea");
       exportTextarea.id = "stroke-json";
       exportTextarea.readOnly = true;
@@ -602,6 +785,26 @@
       setupCanvasForCurrent(true);
       updateExportBox();
       updateTeacherUI();
+
+      // Creator mode visibility
+      if (!creatorMode) {
+        modeToggle.style.display = "none";
+        recordBtn.style.display = "none";
+        exportBox.style.display = "none";
+        teacherMode = false;
+      } else {
+        modeToggle.style.display = "inline-flex";
+        recordBtn.style.display = "inline-flex";
+        exportBox.style.display = "block";
+        modeCheckbox.checked = teacherMode;
+        modeCheckbox.addEventListener("change", () => {
+          teacherMode = modeCheckbox.checked;
+          demoRunning = false;
+          recording = false;
+          recordedStrokes = [];
+          updateTeacherUI();
+        });
+      }
     }
 
     function getCurrentLetter() {
@@ -611,6 +814,10 @@
     function updateTeacherUI() {
       const status = document.getElementById("stroke-status");
       if (!status) return;
+      if (!creatorMode) {
+        status.textContent = "";
+        return;
+      }
       const letter = getCurrentLetter();
       const data = STROKE_DATA[letter.id];
       if (!data || !data.strokes || data.strokes.length === 0) {
@@ -649,7 +856,6 @@
     function clearCanvas(keepSample) {
       if (!traceCtx || !traceCanvas) return;
       traceCtx.clearRect(0, 0, traceCanvas.width, traceCanvas.height);
-      // guide lines
       traceCtx.strokeStyle = "#dde0ff";
       traceCtx.lineWidth = 1;
       const h = traceCanvas.height;
@@ -709,7 +915,6 @@
 
       let strokeIndex = 0;
       let t = 0;
-
       demoRunning = true;
 
       function drawFrame() {
@@ -795,7 +1000,7 @@
         isDrawing = true;
         const pos = getPos(e);
         lastX = pos.x; lastY = pos.y;
-        if (teacherMode && recording) {
+        if (creatorMode && teacherMode && recording) {
           const stroke = [];
           stroke.push(normalizePoint(pos));
           recordedStrokes.push(stroke);
@@ -805,7 +1010,7 @@
         if (!isDrawing || !traceCtx) return;
         e.preventDefault();
         const pos = getPos(e);
-        traceCtx.strokeStyle = teacherMode && recording ? "#ff7b7b" : "#4a90e2";
+        traceCtx.strokeStyle = (creatorMode && teacherMode && recording) ? "#ff7b7b" : "#4a90e2";
         traceCtx.lineWidth = 6;
         traceCtx.lineCap = "round";
         traceCtx.lineJoin = "round";
@@ -814,7 +1019,7 @@
         traceCtx.lineTo(pos.x, pos.y);
         traceCtx.stroke();
         lastX = pos.x; lastY = pos.y;
-        if (teacherMode && recording && recordedStrokes.length > 0) {
+        if (creatorMode && teacherMode && recording && recordedStrokes.length > 0) {
           const stroke = recordedStrokes[recordedStrokes.length - 1];
           stroke.push(normalizePoint(pos));
         }
@@ -843,11 +1048,11 @@
       };
     }
 
-    // --- simple smoothing: moving average + light decimation ---
+    // --- smoothing for creator-recorded strokes ---
     function smoothStroke(stroke) {
       if (!stroke || stroke.length <= 3) return stroke;
       const smoothed = [];
-      smoothed.push(stroke[0]); // keep first
+      smoothed.push(stroke[0]);
       for (let i = 1; i < stroke.length - 1; i++) {
         const pPrev = stroke[i - 1];
         const p = stroke[i];
@@ -857,9 +1062,7 @@
           y: (pPrev.y + p.y + pNext.y) / 3
         });
       }
-      smoothed.push(stroke[stroke.length - 1]); // keep last
-
-      // optional: keep every 2nd point if very dense
+      smoothed.push(stroke[stroke.length - 1]);
       const MAX_POINTS = 180;
       if (smoothed.length <= MAX_POINTS) return smoothed;
       const step = Math.ceil(smoothed.length / MAX_POINTS);
@@ -874,6 +1077,8 @@
     }
 
     // ---- initial screen ----
+    initKidProfile();
+    updateKidUI();
     renderLetters(UYIR, "Uyir Ezhuthukkal");
   </script>
 </body>
