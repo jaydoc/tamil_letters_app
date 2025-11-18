@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Tamil Kids – Letters, Tracing, Activities & Games</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
+  <head>
+    <meta charset="UTF-8">
+      <title>Tamil Kids – Letters, Tracing, Activities & Games</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
     :root {
       --bg: #f6f6fb;
       --accent: #7267f0;
@@ -232,49 +232,46 @@
       canvas#traceCanvas { height: 230px; }
     }
   </style>
-</head>
-<body>
-  <div class="app">
-    <header>
-      <div class="pill"><span>தமிழ்</span> • <span>for kids</span></div>
-      <h1 class="title" id="appTitle">Tamil Kids Letters</h1>
-      <p class="subtitle" id="subtitle">Tap, trace, sort vowels, and play games.</p>
-      <div class="top-header-row">
-        <div class="greeting" id="greeting"></div>
-        <div class="stars-pill" id="stars-pill">⭐ <span id="stars-count">0</span></div>
-      </div>
-    </header>
-
-    <nav class="tabs">
-      <button class="tab-btn active" data-tab="uyir">Uyir (Vowels)</button>
-      <button class="tab-btn" data-tab="mei">Mei (Consonants)</button>
-      <button class="tab-btn" data-tab="trace">✏️ Trace letters</button>
-      <button class="tab-btn" data-tab="game">🎮 Game</button>
-      <button class="tab-btn" data-tab="activities">📚 Activities</button>
-    </nav>
-
-    <main id="content"></main>
-
-    <footer>
-      <div>Kids: use the tabs to learn and play. Creators: hidden tools let you refine strokes.</div>
-      <div class="small">Add MP3 audio files in <code>audio/</code> to enable sounds.</div>
-    </footer>
-  </div>
-
-  <!-- Child name modal -->
-  <div id="nameModal" class="modal-backdrop hidden">
-    <div class="modal">
-      <h2>வணக்கம்! 😊</h2>
-      <p>What is your name?</p>
-      <input type="text" id="kidNameInput" placeholder="Type your name..." />
-      <button id="kidNameSaveBtn">Let's start</button>
-    </div>
-  </div>
-
-  <!-- external stroke data -->
-  <script src="strokes.js"></script>
-
-  <script>
+      </head>
+      <body>
+        <div class="app">
+          <header>
+            <div class="pill">
+              <span>தமிழ்</span> • <span>for kids</span>
+            </div>
+            <h1 class="title" id="appTitle">Tamil Kids Letters</h1>
+            <p class="subtitle" id="subtitle">Tap, trace, sort vowels, and play games.</p>
+            <div class="top-header-row">
+              <div class="greeting" id="greeting"></div>
+              <div class="stars-pill" id="stars-pill">⭐ <span id="stars-count">0</span>
+              </div>
+            </div>
+          </header>
+          <nav class="tabs">
+            <button class="tab-btn active" data-tab="uyir">Uyir (Vowels)</button>
+            <button class="tab-btn" data-tab="mei">Mei (Consonants)</button>
+            <button class="tab-btn" data-tab="trace">✏️ Trace letters</button>
+            <button class="tab-btn" data-tab="game">🎮 Game</button>
+            <button class="tab-btn" data-tab="activities">📚 Activities</button>
+          </nav>
+          <main id="content"></main>
+          <footer>
+            <div>Kids: use the tabs to learn and play. Creators: hidden tools let you refine strokes.</div>
+            <div class="small">Add MP3 audio files in <code>audio/</code> to enable sounds.</div>
+          </footer>
+        </div>
+        <!-- Child name modal -->
+        <div id="nameModal" class="modal-backdrop hidden">
+          <div class="modal">
+            <h2>வணக்கம்! 😊</h2>
+            <p>What is your name?</p>
+            <input type="text" id="kidNameInput" placeholder="Type your name..."/>
+            <button id="kidNameSaveBtn">Let's start</button>
+          </div>
+        </div>
+        <!-- external stroke data -->
+        <script src="strokes.js"></script>
+        <script>
     // ---- Data ----
     const UYIR = [
       { id: "a",  tamil: "அ", translit: "a",  audioId: "a"  },
@@ -337,7 +334,8 @@
     }
 
     // ---- Kid profile + stars + creator mode ----
-    let kidName = (localStorage.getItem("kidName") || "").trim();
+    // use sessionStorage so name does not persist "forever" across sessions
+    let kidName = (sessionStorage.getItem("kidName") || "").trim();
     let starCount = parseInt(localStorage.getItem("kidStars") || "0", 10) || 0;
     let creatorMode = false;
     let currentTab = "uyir";
@@ -391,7 +389,7 @@
         const v = input.value.trim();
         if (!v) return;
         kidName = v;
-        localStorage.setItem("kidName", kidName);
+        sessionStorage.setItem("kidName", kidName);
         updateKidUI();
         modal.classList.add("hidden");
       }
@@ -491,6 +489,10 @@
     // ---- Game: Find the Sound ----
     let gameTarget = null;
     let options = [];
+    let gameRound = 0;
+    let gameCorrect = 0;
+    let gameOver = false;
+    const ROUNDS_PER_GAME = 10;
 
     function renderGame() {
       contentEl.innerHTML = "";
@@ -519,10 +521,28 @@
       const nextBtn = document.createElement("button");
       nextBtn.className = "btn btn-ghost";
       nextBtn.textContent = "Next round";
-      nextBtn.addEventListener("click", newRound);
+      nextBtn.addEventListener("click", () => {
+        newRound();
+      });
+
+      const resetBtn = document.createElement("button");
+      resetBtn.className = "btn btn-ghost";
+      resetBtn.textContent = "New game (10 questions)";
+      resetBtn.addEventListener("click", () => {
+        gameRound = 0;
+        gameCorrect = 0;
+        gameOver = false;
+        const feedbackEl = document.querySelector(".feedback");
+        if (feedbackEl) {
+          feedbackEl.textContent = "";
+          feedbackEl.className = "feedback";
+        }
+        newRound();
+      });
 
       controls.appendChild(playBtn);
       controls.appendChild(nextBtn);
+      controls.appendChild(resetBtn);
 
       const grid = document.createElement("div");
       grid.className = "grid game-grid";
@@ -536,11 +556,11 @@
       contentEl.appendChild(grid);
       contentEl.appendChild(feedback);
 
-      const shuffled = [...ALL].sort(() => Math.random() - 0.5);
-      options = shuffled.slice(0, 4);
-      gameTarget = options[Math.floor(Math.random() * options.length)];
-      if (gameTarget) playSound(gameTarget.audioId);
-      renderGameOptions(grid);
+      // start a fresh game
+      gameRound = 0;
+      gameCorrect = 0;
+      gameOver = false;
+      newRound();
     }
 
     function renderGameOptions(grid) {
@@ -562,29 +582,65 @@
     }
 
     function newRound() {
+      if (gameOver) {
+        const feedbackEl = document.querySelector(".feedback");
+        if (feedbackEl) {
+          const namePart = kidName ? `, ${kidName}` : "";
+          feedbackEl.textContent =
+            `🎉 You finished ${ROUNDS_PER_GAME} questions${namePart}! Tap “New game” to play again.`;
+          feedbackEl.className = "feedback ok";
+        }
+        return;
+      }
+
       if (ALL.length < 4) return;
+
+      const grid = document.querySelector(".grid.game-grid");
+      const feedbackEl = document.querySelector(".feedback");
+
       const shuffled = [...ALL].sort(() => Math.random() - 0.5);
       options = shuffled.slice(0, 4);
       gameTarget = options[Math.floor(Math.random() * options.length)];
-      const grid = document.querySelector(".grid.game-grid");
-      const feedbackEl = document.querySelector(".feedback");
+
       if (feedbackEl) {
-        feedbackEl.textContent = "";
+        feedbackEl.textContent = `Question ${gameRound + 1} of ${ROUNDS_PER_GAME}`;
         feedbackEl.className = "feedback";
       }
-      if (gameTarget) playSound(gameTarget.audioId);
-      if (grid) renderGameOptions(grid);
+
+      if (grid) {
+        renderGameOptions(grid);
+      }
+
+      if (gameTarget) {
+        playSound(gameTarget.audioId);
+      }
     }
 
     function handleGuess(letter) {
       const feedbackEl = document.querySelector(".feedback");
-      if (!gameTarget || !feedbackEl) return;
+      if (!gameTarget || !feedbackEl || gameOver) return;
+
       if (letter.id === gameTarget.id) {
-        const namePart = kidName ? `, ${kidName}` : "";
-        feedbackEl.textContent = `✅ சரி${namePart}! You earned a ⭐`;
-        feedbackEl.className = "feedback ok";
+        // correct
+        gameRound += 1;
+        gameCorrect += 1;
         addStar();
-        setTimeout(() => newRound(), 800);
+
+        const namePart = kidName ? `, ${kidName}` : "";
+
+        if (gameRound >= ROUNDS_PER_GAME) {
+          gameOver = true;
+          feedbackEl.textContent =
+            `🎉 Superb${namePart}! You finished ${ROUNDS_PER_GAME} questions and got ${gameCorrect} right.`;
+          feedbackEl.className = "feedback ok";
+          gameTarget = null;
+        } else {
+          feedbackEl.textContent =
+            `✅ சரி${namePart}! That was question ${gameRound} of ${ROUNDS_PER_GAME}. Tap “Next round” to continue.`;
+          feedbackEl.className = "feedback ok";
+          // freeze this round; Next round must be tapped
+          gameTarget = null;
+        }
       } else {
         const namePart = kidName ? `, ${kidName}` : "";
         feedbackEl.textContent = `❌ மீண்டும் முயற்சி செய்${namePart}! (Try again!)`;
@@ -927,6 +983,7 @@
         traceCtx.lineCap = "round";
         traceCtx.lineJoin = "round";
 
+        // draw completed strokes
         for (let i = 0; i < strokeIndex; i++) {
           const stroke = data.strokes[i];
           if (!stroke || stroke.length < 2) continue;
@@ -940,6 +997,7 @@
           traceCtx.stroke();
         }
 
+        // draw current in-progress stroke
         if (strokeIndex < data.strokes.length) {
           const stroke = data.strokes[strokeIndex];
           if (stroke && stroke.length >= 2) {
@@ -1051,8 +1109,10 @@
     // --- smoothing for creator-recorded strokes ---
     function smoothStroke(stroke) {
       if (!stroke || stroke.length <= 3) return stroke;
+
       const smoothed = [];
       smoothed.push(stroke[0]);
+
       for (let i = 1; i < stroke.length - 1; i++) {
         const pPrev = stroke[i - 1];
         const p = stroke[i];
@@ -1062,9 +1122,12 @@
           y: (pPrev.y + p.y + pNext.y) / 3
         });
       }
+
       smoothed.push(stroke[stroke.length - 1]);
+
       const MAX_POINTS = 180;
       if (smoothed.length <= MAX_POINTS) return smoothed;
+
       const step = Math.ceil(smoothed.length / MAX_POINTS);
       const decimated = [];
       for (let i = 0; i < smoothed.length; i += step) {
@@ -1080,6 +1143,6 @@
     initKidProfile();
     updateKidUI();
     renderLetters(UYIR, "Uyir Ezhuthukkal");
-  </script>
-</body>
-</html>
+        </script>
+      </body>
+    </html>
