@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tamil Kids – Letters, Tracing, Activities & Games</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #f6f6fb;
+      --accent: #7267f0;
+      --card-bg: #ffffff;
+      --text-main: #222;
+      --text-muted: #555;
+      --radius-lg: 1.4rem;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #fff7e6, #f6f6fb 40%, #e6f3ff);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+    .app { width: 100%; max-width: 900px; padding: 1.5rem 1rem 2rem; }
+    header { text-align: center; margin-bottom: 1.5rem; }
+    .title { font-size: 2.2rem; margin: 0; }
+    .subtitle { margin: 0.25rem 0 0.75rem; color: var(--text-muted); font-size: 0.95rem; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.7); padding: 0.3rem 0.9rem;
+      border-radius: 999px; font-size: 0.8rem; color: var(--text-muted);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .tabs {
+      display: flex; gap: 0.5rem; background: rgba(255,255,255,0.7);
+      padding: 0.25rem; border-radius: 999px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06); margin-bottom: 1rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      flex: 1; border: none; background: transparent;
+      padding: 0.55rem 0.5rem; border-radius: 999px;
+      font-size: 0.9rem; cursor: pointer; color: var(--text-muted);
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+    .tab-btn.active {
+      background: var(--accent); color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(114,103,240,0.35);
+    }
+    .section-title { margin: 0 0 0.5rem; font-size: 1.2rem; text-align: center; }
+    .hint { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.75rem; }
+    .card {
+      background: var(--card-bg); border-radius: var(--radius-lg);
+      padding: 0.7rem 0.4rem; border: none; width: 100%; aspect-ratio: 1 / 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(120, 120, 200, 0.18);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(120,120,200,0.25);
+      background: #ffffff;
+    }
+    .card-main { font-size: 2.1rem; margin-bottom: 0.3rem; }
+    .card-sub { font-size: 0.9rem; opacity: 0.7; }
+    .controls {
+      display: flex; justify-content: center; gap: 0.5rem;
+      margin-bottom: 0.75rem; flex-wrap: wrap;
+    }
+    .btn {
+      border-radius: 999px; border: none; padding: 0.45rem 0.9rem;
+      font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08); background: #ffffff;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 4px 12px rgba(114,103,240,0.4);
+    }
+    .btn-ghost { background: rgba(255,255,255,0.9); }
+    .feedback { text-align: center; font-size: 0.95rem; margin-top: 0.5rem; min-height: 1.2rem; }
+    .feedback.ok { color: #0a8a4b; }
+    .feedback.err { color: #c0392b; }
+    .trace-wrapper {
+      max-width: 560px; margin: 0 auto;
+      background: rgba(255,255,255,0.9);
+      border-radius: 1.5rem; padding: 0.75rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+    .trace-top {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.85rem; color: var(--text-muted);
+      margin-bottom: 0.4rem; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .mode-toggle {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.2rem 0.6rem; border-radius: 999px;
+      background: rgba(114,103,240,0.08); font-size: 0.8rem;
+    }
+    .mode-toggle input { accent-color: var(--accent); }
+    .trace-canvas-wrap {
+      position: relative; border-radius: 1.2rem; overflow: hidden;
+      background: repeating-linear-gradient(
+        0deg, #f9f9ff, #f9f9ff 10px, #eef1ff 10px, #eef1ff 20px
+      );
+      border: 1px solid #dde0ff;
+    }
+    canvas#traceCanvas { width: 100%; height: 280px; touch-action: none; display: block; }
+    .trace-info {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;
+      gap: 0.5rem; flex-wrap: wrap;
+    }
+    .export-box {
+      margin-top: 0.6rem;
+      font-size: 0.75rem;
+    }
+    .export-box textarea {
+      width: 100%;
+      min-height: 80px;
+      font-size: 0.7rem;
+      font-family: monospace;
+      border-radius: 0.6rem;
+      border: 1px solid #ddd;
+      padding: 0.4rem;
+      resize: vertical;
+    }
+    .activities-wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.9);
+      border-radius: 1.5rem;
+      padding: 0.75rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+    .activities-wrapper iframe {
+      width: 100%;
+      border-radius: 1rem;
+      border: none;
+      min-height: 420px;
+    }
+    footer { margin-top: 1.4rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+    .small { font-size: 0.8rem; }
+    @media (max-width: 480px) {
+      .title { font-size: 1.8rem; }
+      canvas#traceCanvas { height: 230px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="pill"><span>தமிழ்</span> • <span>for kids</span></div>
+      <h1 class="title">Tamil Kids Letters</h1>
+      <p class="subtitle">Tap, trace, sort vowels, and play games.</p>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="uyir">Uyir (Vowels)</button>
+      <button class="tab-btn" data-tab="mei">Mei (Consonants)</button>
+      <button class="tab-btn" data-tab="trace">✏️ Trace letters</button>
+      <button class="tab-btn" data-tab="game">🎮 Game</button>
+      <button class="tab-btn" data-tab="activities">📚 Activities</button>
+    </nav>
+
+    <main id="content"></main>
+
+    <footer>
+      <div>For parents & kids: use the tabs. For teachers: use Teacher mode inside Trace.</div>
+      <div class="small">Add MP3 audio files in <code>audio/</code> to enable sounds.</div>
+    </footer>
+  </div>
+
+  <!-- external stroke data -->
+  <script src="strokes.js"></script>
+
+  <script>
+    // ---- Data ----
+    const UYIR = [
+      { id: "a",  tamil: "அ", translit: "a",  audioId: "a"  },
+      { id: "aa", tamil: "ஆ", translit: "aa", audioId: "aa" },
+      { id: "i",  tamil: "இ", translit: "i",  audioId: "i"  },
+      { id: "ii", tamil: "ஈ", translit: "ii", audioId: "ii" },
+      { id: "u",  tamil: "உ", translit: "u",  audioId: "u"  },
+      { id: "uu", tamil: "ஊ", translit: "uu", audioId: "uu" },
+      { id: "e",  tamil: "எ", translit: "e",  audioId: "e"  },
+      { id: "ee", tamil: "ஏ", translit: "ee", audioId: "ee" },
+      { id: "ai", tamil: "ஐ", translit: "ai", audioId: "ai" },
+      { id: "o",  tamil: "ஒ", translit: "o",  audioId: "o"  },
+      { id: "oo", tamil: "ஓ", translit: "oo", audioId: "oo" },
+      { id: "au", tamil: "ஔ", translit: "au", audioId: "au" }
+    ];
+
+    const MEI = [
+      { id: "k",  tamil: "க்", translit: "k",  audioId: "mei_k"  },
+      { id: "ng", tamil: "ங்", translit: "ng", audioId: "mei_ng" },
+      { id: "ch", tamil: "ச்", translit: "ch", audioId: "mei_ch" },
+      { id: "nj", tamil: "ஞ்", translit: "nj", audioId: "mei_nj" },
+      { id: "t",  tamil: "ட்", translit: "t",  audioId: "mei_t"  },
+      { id: "n1", tamil: "ண்", translit: "n",  audioId: "mei_n1" },
+      { id: "th", tamil: "த்", translit: "th", audioId: "mei_th" },
+      { id: "n2", tamil: "ந்", translit: "n",  audioId: "mei_n2" },
+      { id: "p",  tamil: "ப்", translit: "p",  audioId: "mei_p"  },
+      { id: "m",  tamil: "ம்", translit: "m",  audioId: "mei_m"  },
+      { id: "y",  tamil: "ய்", translit: "y",  audioId: "mei_y"  },
+      { id: "r1", tamil: "ர்", translit: "r",  audioId: "mei_r1" },
+      { id: "l1", tamil: "ல்", translit: "l",  audioId: "mei_l1" },
+      { id: "v",  tamil: "வ்", translit: "v",  audioId: "mei_v"  },
+      { id: "z",  tamil: "ழ்", translit: "zh", audioId: "mei_z" },
+      { id: "l2", tamil: "ள்", translit: "l",  audioId: "mei_l2" },
+      { id: "r2", tamil: "ற்", translit: "r",  audioId: "mei_r2" },
+      { id: "n3", tamil: "ன்", translit: "n",  audioId: "mei_n3" }
+    ];
+
+    const ALL = [...UYIR, ...MEI];
+
+    // ---- Stroke data: base from strokes.js, then override/extend from localStorage ----
+    let STROKE_DATA = (window.TAMIL_STROKE_DATA || {});
+    try {
+      const stored = localStorage.getItem("tamilStrokeData");
+      if (stored) {
+        const extra = JSON.parse(stored);
+        for (const key in extra) {
+          STROKE_DATA[key] = extra[key];
+        }
+      }
+    } catch (e) {
+      console.warn("Could not load local stroke data:", e);
+    }
+
+    function saveStrokeData() {
+      try {
+        localStorage.setItem("tamilStrokeData", JSON.stringify(STROKE_DATA));
+      } catch (e) {
+        console.warn("Could not save stroke data:", e);
+      }
+    }
+
+    // ---- Audio helper ----
+    const audioCache = {};
+    function playSound(audioId) {
+      const src = "audio/" + audioId + ".mp3";
+      if (!audioCache[audioId]) {
+        audioCache[audioId] = new Audio(src);
+      }
+      const audio = audioCache[audioId];
+      audio.currentTime = 0;
+      audio.play().catch(() => {
+        console.warn("Audio could not play. Check file:", src);
+      });
+    }
+
+    // ---- UI base ----
+    const contentEl = document.getElementById("content");
+    const tabButtons = document.querySelectorAll(".tab-btn");
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const tab = btn.getAttribute("data-tab");
+        if (tab === "uyir") renderLetters(UYIR, "Uyir Ezhuthukkal");
+        else if (tab === "mei") renderLetters(MEI, "Mei Ezhuthukkal");
+        else if (tab === "trace") renderTrace();
+        else if (tab === "game") renderGame();
+        else if (tab === "activities") renderActivities();
+      });
+    });
+
+    function renderLetters(list, title) {
+      contentEl.innerHTML = "";
+      const h = document.createElement("h2");
+      h.className = "section-title";
+      h.textContent = title;
+
+      const hint = document.createElement("div");
+      hint.className = "hint";
+      hint.textContent = "Tap a letter to hear the sound.";
+
+      const grid = document.createElement("div");
+      grid.className = "grid";
+
+      list.forEach(letter => {
+        const btn = document.createElement("button");
+        btn.className = "card";
+        btn.addEventListener("click", () => playSound(letter.audioId));
+
+        const main = document.createElement("div");
+        main.className = "card-main";
+        main.textContent = letter.tamil;
+
+        const sub = document.createElement("div");
+        sub.className = "card-sub";
+        sub.textContent = letter.translit;
+
+        btn.appendChild(main);
+        btn.appendChild(sub);
+        grid.appendChild(btn);
+      });
+
+      contentEl.appendChild(h);
+      contentEl.appendChild(hint);
+      contentEl.appendChild(grid);
+    }
+
+    // ---- Game: Find the Sound ----
+    let gameTarget = null;
+    let options = [];
+
+    function renderGame() {
+      contentEl.innerHTML = "";
+      const h = document.createElement("h2");
+      h.className = "section-title";
+      h.textContent = "Game: Find the Sound";
+
+      const hint = document.createElement("div");
+      hint.className = "hint";
+      hint.textContent = "Tap 🔊 to hear a sound. Then tap the matching letter.";
+
+      const controls = document.createElement("div");
+      controls.className = "controls";
+
+      const playBtn = document.createElement("button");
+      playBtn.className = "btn btn-primary";
+      playBtn.innerHTML = "🔊 Play sound again";
+      playBtn.addEventListener("click", () => {
+        if (gameTarget) playSound(gameTarget.audioId);
+      });
+
+      const nextBtn = document.createElement("button");
+      nextBtn.className = "btn btn-ghost";
+      nextBtn.textContent = "Next round";
+      nextBtn.addEventListener("click", newRound);
+
+      controls.appendChild(playBtn);
+      controls.appendChild(nextBtn);
+
+      const grid = document.createElement("div");
+      grid.className = "grid game-grid";
+
+      const feedback = document.createElement("div");
+      feedback.className = "feedback";
+
+      contentEl.appendChild(h);
+      contentEl.appendChild(hint);
+      contentEl.appendChild(controls);
+      contentEl.appendChild(grid);
+      contentEl.appendChild(feedback);
+
+      const shuffled = [...ALL].sort(() => Math.random() - 0.5);
+      options = shuffled.slice(0, 4);
+      gameTarget = options[Math.floor(Math.random() * options.length)];
+      if (gameTarget) playSound(gameTarget.audioId);
+      renderGameOptions(grid);
+    }
+
+    function renderGameOptions(grid) {
+      grid.innerHTML = "";
+      options.forEach(letter => {
+        const btn = document.createElement("button");
+          btn.className = "card";
+          btn.addEventListener("click", () => handleGuess(letter));
+          const main = document.createElement("div");
+          main.className = "card-main";
+          main.textContent = letter.tamil;
+          const sub = document.createElement("div");
+          sub.className = "card-sub";
+          sub.textContent = letter.translit;
+          btn.appendChild(main);
+          btn.appendChild(sub);
+          grid.appendChild(btn);
+      });
+    }
+
+    function newRound() {
+      if (ALL.length < 4) return;
+      const shuffled = [...ALL].sort(() => Math.random() - 0.5);
+      options = shuffled.slice(0, 4);
+      gameTarget = options[Math.floor(Math.random() * options.length)];
+      const grid = document.querySelector(".grid.game-grid");
+      const feedbackEl = document.querySelector(".feedback");
+      if (feedbackEl) {
+        feedbackEl.textContent = "";
+        feedbackEl.className = "feedback";
+      }
+      if (gameTarget) playSound(gameTarget.audioId);
+      if (grid) renderGameOptions(grid);
+    }
+
+    function handleGuess(letter) {
+      const feedbackEl = document.querySelector(".feedback");
+      if (!gameTarget || !feedbackEl) return;
+      if (letter.id === gameTarget.id) {
+        feedbackEl.textContent = "✅ சரி! (Correct!)";
+        feedbackEl.className = "feedback ok";
+        setTimeout(() => newRound(), 800);
+      } else {
+        feedbackEl.textContent = "❌ மீண்டும் முயற்சி செய்! (Try again!)";
+        feedbackEl.className = "feedback err";
+      }
+    }
+
+    // ---- Activities: H5P vowel sorting embed ----
+    function renderActivities() {
+      contentEl.innerHTML = "";
+      const h = document.createElement("h2");
+      h.className = "section-title";
+      h.textContent = "Activities: Sort Long & Short Vowels";
+
+      const hint = document.createElement("div");
+      hint.className = "hint";
+      hint.textContent = "This activity is loaded from MSU Basic Tamil (internet required).";
+
+      const wrap = document.createElement("div");
+      wrap.className = "activities-wrapper";
+
+      // Create iframe container
+      const iframe = document.createElement("iframe");
+      iframe.src = "https://openbooks.lib.msu.edu/basictamil/wp-admin/admin-ajax.php?action=h5p_embed&id=3";
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("allowfullscreen", "allowfullscreen");
+      iframe.title = "Sort the long and short vowels";
+
+      wrap.appendChild(iframe);
+      contentEl.appendChild(h);
+      contentEl.appendChild(hint);
+      contentEl.appendChild(wrap);
+
+      // Inject H5P resizer script once (if not present)
+      if (!document.getElementById("h5p-resizer")) {
+        const s = document.createElement("script");
+        s.id = "h5p-resizer";
+        s.src = "https://openbooks.lib.msu.edu/app/plugins/h5p/h5p-php-library/js/h5p-resizer.js";
+        s.charset = "UTF-8";
+        document.body.appendChild(s);
+      }
+    }
+
+    // ---- Tracing + Teacher mode ----
+    let traceCanvas, traceCtx;
+    let isDrawing = false;
+    let lastX = 0, lastY = 0;
+    let currentTraceIndex = 0;
+    const TRACE_LIST = UYIR; // later you can change to [...UYIR, ...MEI]
+    let teacherMode = false;
+    let recording = false;
+    let recordedStrokes = []; // for current session
+    let demoRunning = false;
+    let demoSpeed = 0.015; // slower speed for animation (was 0.03)
+
+    function renderTrace() {
+      contentEl.innerHTML = "";
+
+      const h = document.createElement("h2");
+      h.className = "section-title";
+      h.textContent = "Trace big letters";
+
+      const hint = document.createElement("div");
+      hint.className = "hint";
+      hint.textContent = "Kids: watch the pink demo, then trace. Teachers: turn on Teacher mode to record real stroke order.";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "trace-wrapper";
+
+      const topRow = document.createElement("div");
+      topRow.className = "trace-top";
+
+      const letterLabel = document.createElement("div");
+      letterLabel.id = "trace-letter-label";
+
+      const modeToggle = document.createElement("label");
+      modeToggle.className = "mode-toggle";
+      const modeCheckbox = document.createElement("input");
+      modeCheckbox.type = "checkbox";
+      modeCheckbox.addEventListener("change", () => {
+        teacherMode = modeCheckbox.checked;
+        demoRunning = false;
+        recording = false;
+        recordedStrokes = [];
+        updateTeacherUI();
+      });
+      const modeText = document.createElement("span");
+      modeText.textContent = "Teacher mode (record strokes)";
+      modeToggle.appendChild(modeCheckbox);
+      modeToggle.appendChild(modeText);
+
+      topRow.appendChild(letterLabel);
+      topRow.appendChild(modeToggle);
+
+      const controls = document.createElement("div");
+      controls.className = "controls";
+
+      const prevBtn = document.createElement("button");
+      prevBtn.className = "btn btn-ghost";
+      prevBtn.textContent = "← Previous";
+      prevBtn.addEventListener("click", () => {
+        currentTraceIndex = (currentTraceIndex - 1 + TRACE_LIST.length) % TRACE_LIST.length;
+        setupCanvasForCurrent(false);
+      });
+
+      const nextBtn = document.createElement("button");
+      nextBtn.className = "btn btn-ghost";
+      nextBtn.textContent = "Next →";
+      nextBtn.addEventListener("click", () => {
+        currentTraceIndex = (currentTraceIndex + 1) % TRACE_LIST.length;
+        setupCanvasForCurrent(false);
+      });
+
+      const demoBtn = document.createElement("button");
+      demoBtn.className = "btn btn-primary";
+      demoBtn.id = "demo-btn";
+      demoBtn.textContent = "▶ Show how to write";
+      demoBtn.addEventListener("click", () => {
+        runDemoForCurrent();
+      });
+
+      const clearBtn = document.createElement("button");
+      clearBtn.className = "btn";
+      clearBtn.textContent = "Clear tracing";
+      clearBtn.addEventListener("click", () => {
+        clearCanvas(true);
+      });
+
+      const recordBtn = document.createElement("button");
+      recordBtn.className = "btn";
+      recordBtn.id = "record-btn";
+      recordBtn.textContent = "⏺ Start recording";
+      recordBtn.addEventListener("click", () => {
+        if (!teacherMode) return;
+        if (!recording) {
+          // start
+          demoRunning = false;
+          recording = true;
+          recordedStrokes = [];
+          clearCanvas(true);
+          recordBtn.textContent = "⏹ Stop & save";
+        } else {
+          // stop & save
+          recording = false;
+          const letterId = getCurrentLetter().id;
+          const normalized = recordedStrokes.map(s => smoothStroke(s));
+          STROKE_DATA[letterId] = { strokes: normalized };
+          saveStrokeData();
+          updateExportBox();
+          updateTeacherUI();
+          recordBtn.textContent = "⏺ Start recording";
+        }
+      });
+
+      controls.appendChild(prevBtn);
+      controls.appendChild(nextBtn);
+      controls.appendChild(demoBtn);
+      controls.appendChild(clearBtn);
+      controls.appendChild(recordBtn);
+
+      const canvasWrap = document.createElement("div");
+      canvasWrap.className = "trace-canvas-wrap";
+      const canvas = document.createElement("canvas");
+      canvas.id = "traceCanvas";
+      canvasWrap.appendChild(canvas);
+
+      const infoRow = document.createElement("div");
+      infoRow.className = "trace-info";
+      const infoLeft = document.createElement("div");
+      infoLeft.textContent = "Tip: first watch the pink demo, then copy it.";
+      const infoRight = document.createElement("div");
+      infoRight.id = "stroke-status";
+      infoRight.textContent = "";
+      infoRow.appendChild(infoLeft);
+      infoRow.appendChild(infoRight);
+
+      const exportBox = document.createElement("div");
+      exportBox.className = "export-box";
+      const exportLabel = document.createElement("div");
+      exportLabel.textContent = "Teacher: this JSON represents all current strokes (file + local). Paste into strokes.js when you're happy:";
+      const exportTextarea = document.createElement("textarea");
+      exportTextarea.id = "stroke-json";
+      exportTextarea.readOnly = true;
+      exportBox.appendChild(exportLabel);
+      exportBox.appendChild(exportTextarea);
+
+      wrapper.appendChild(topRow);
+      wrapper.appendChild(controls);
+      wrapper.appendChild(canvasWrap);
+      wrapper.appendChild(infoRow);
+      wrapper.appendChild(exportBox);
+
+      contentEl.appendChild(h);
+      contentEl.appendChild(hint);
+      contentEl.appendChild(wrapper);
+
+      traceCanvas = canvas;
+      traceCtx = traceCanvas.getContext("2d");
+      resizeCanvas();
+      attachDrawEvents();
+      setupCanvasForCurrent(true);
+      updateExportBox();
+      updateTeacherUI();
+    }
+
+    function getCurrentLetter() {
+      return TRACE_LIST[currentTraceIndex];
+    }
+
+    function updateTeacherUI() {
+      const status = document.getElementById("stroke-status");
+      if (!status) return;
+      const letter = getCurrentLetter();
+      const data = STROKE_DATA[letter.id];
+      if (!data || !data.strokes || data.strokes.length === 0) {
+        status.textContent = "No recorded stroke data yet for this letter.";
+      } else {
+        status.textContent = "Recorded strokes: " + data.strokes.length;
+      }
+    }
+
+    function updateLetterLabel() {
+      const label = document.getElementById("trace-letter-label");
+      if (!label) return;
+      const letter = getCurrentLetter();
+      label.textContent = "Letter: " + letter.tamil + " (" + letter.translit + ")";
+    }
+
+    function updateExportBox() {
+      const textarea = document.getElementById("stroke-json");
+      if (!textarea) return;
+      textarea.value = JSON.stringify(STROKE_DATA, null, 2);
+    }
+
+    function resizeCanvas() {
+      if (!traceCanvas) return;
+      const rect = traceCanvas.getBoundingClientRect();
+      traceCanvas.width = rect.width;
+      traceCanvas.height = rect.height;
+    }
+
+    window.addEventListener("resize", () => {
+      if (!traceCanvas) return;
+      resizeCanvas();
+      clearCanvas(true);
+    });
+
+    function clearCanvas(keepSample) {
+      if (!traceCtx || !traceCanvas) return;
+      traceCtx.clearRect(0, 0, traceCanvas.width, traceCanvas.height);
+      // guide lines
+      traceCtx.strokeStyle = "#dde0ff";
+      traceCtx.lineWidth = 1;
+      const h = traceCanvas.height;
+      const w = traceCanvas.width;
+      const ys = [0.3*h, 0.6*h, 0.9*h];
+      ys.forEach(y => {
+        traceCtx.beginPath();
+        traceCtx.moveTo(0, y);
+        traceCtx.lineTo(w, y);
+        traceCtx.stroke();
+      });
+      if (keepSample) {
+        drawSampleLetter(0.18);
+      }
+    }
+
+    function drawSampleLetter(alpha) {
+      if (!traceCtx || !traceCanvas) return;
+      const letter = getCurrentLetter();
+      traceCtx.save();
+      traceCtx.globalAlpha = alpha;
+      const h = traceCanvas.height;
+      const w = traceCanvas.width;
+      const fontSize = Math.min(w, h) * 0.7;
+      traceCtx.font = fontSize + "px 'Noto Sans Tamil', 'Latha', 'Arial Unicode MS', serif";
+      traceCtx.textAlign = "center";
+      traceCtx.textBaseline = "middle";
+      traceCtx.fillStyle = "#5555aa";
+      traceCtx.fillText(letter.tamil, w/2, h*0.55);
+      traceCtx.restore();
+    }
+
+    function setupCanvasForCurrent(runDemoFirst) {
+      updateLetterLabel();
+      clearCanvas(true);
+      updateTeacherUI();
+      if (runDemoFirst) {
+        runDemoForCurrent();
+      }
+    }
+
+    function runDemoForCurrent() {
+      const letter = getCurrentLetter();
+      const data = STROKE_DATA[letter.id];
+      if (!data || !data.strokes || data.strokes.length === 0) {
+        clearCanvas(true);
+        return;
+      }
+      animateLetterWithStrokes(letter.id);
+    }
+
+    function animateLetterWithStrokes(letterId) {
+      const data = STROKE_DATA[letterId];
+      if (!data || !traceCtx || !traceCanvas) return;
+      const w = traceCanvas.width;
+      const h = traceCanvas.height;
+
+      let strokeIndex = 0;
+      let t = 0;
+
+      demoRunning = true;
+
+      function drawFrame() {
+        if (!demoRunning) return;
+        clearCanvas(true);
+
+        traceCtx.save();
+        traceCtx.strokeStyle = "#e35b5b";
+        traceCtx.lineWidth = 6;
+        traceCtx.lineCap = "round";
+        traceCtx.lineJoin = "round";
+
+        for (let i = 0; i < strokeIndex; i++) {
+          const stroke = data.strokes[i];
+          if (!stroke || stroke.length < 2) continue;
+          traceCtx.beginPath();
+          stroke.forEach((pt, idx) => {
+            const x = pt.x * w;
+            const y = pt.y * h;
+            if (idx === 0) traceCtx.moveTo(x, y);
+            else traceCtx.lineTo(x, y);
+          });
+          traceCtx.stroke();
+        }
+
+        if (strokeIndex < data.strokes.length) {
+          const stroke = data.strokes[strokeIndex];
+          if (stroke && stroke.length >= 2) {
+            const steps = stroke.length - 1;
+            const total = Math.max(steps, 1);
+            const maxSegment = total * t;
+            const fullSegments = Math.floor(maxSegment);
+            const partial = maxSegment - fullSegments;
+
+            traceCtx.beginPath();
+            for (let i = 0; i <= fullSegments && i < stroke.length; i++) {
+              const x = stroke[i].x * w;
+              const y = stroke[i].y * h;
+              if (i === 0) traceCtx.moveTo(x, y);
+              else traceCtx.lineTo(x, y);
+            }
+            if (fullSegments < stroke.length - 1) {
+              const p1 = stroke[fullSegments];
+              const p2 = stroke[fullSegments + 1];
+              const x = (p1.x + (p2.x - p1.x) * partial) * w;
+              const y = (p1.y + (p2.y - p1.y) * partial) * h;
+              traceCtx.lineTo(x, y);
+            }
+            traceCtx.stroke();
+          }
+        }
+
+        traceCtx.restore();
+
+        t += demoSpeed;
+        if (t >= 1) {
+          t = 0;
+          strokeIndex++;
+          if (strokeIndex >= data.strokes.length) {
+            demoRunning = false;
+            return;
+          }
+        }
+        requestAnimationFrame(drawFrame);
+      }
+
+      requestAnimationFrame(drawFrame);
+    }
+
+    function attachDrawEvents() {
+      if (!traceCanvas) return;
+      const getPos = (e) => {
+        const rect = traceCanvas.getBoundingClientRect();
+        if (e.touches && e.touches.length > 0) {
+          const t = e.touches[0];
+          return { x: t.clientX - rect.left, y: t.clientY - rect.top };
+        }
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      };
+      const start = (e) => {
+        e.preventDefault();
+        if (demoRunning) return;
+        isDrawing = true;
+        const pos = getPos(e);
+        lastX = pos.x; lastY = pos.y;
+        if (teacherMode && recording) {
+          const stroke = [];
+          stroke.push(normalizePoint(pos));
+          recordedStrokes.push(stroke);
+        }
+      };
+      const move = (e) => {
+        if (!isDrawing || !traceCtx) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        traceCtx.strokeStyle = teacherMode && recording ? "#ff7b7b" : "#4a90e2";
+        traceCtx.lineWidth = 6;
+        traceCtx.lineCap = "round";
+        traceCtx.lineJoin = "round";
+        traceCtx.beginPath();
+        traceCtx.moveTo(lastX, lastY);
+        traceCtx.lineTo(pos.x, pos.y);
+        traceCtx.stroke();
+        lastX = pos.x; lastY = pos.y;
+        if (teacherMode && recording && recordedStrokes.length > 0) {
+          const stroke = recordedStrokes[recordedStrokes.length - 1];
+          stroke.push(normalizePoint(pos));
+        }
+      };
+      const end = (e) => {
+        if (!isDrawing) return;
+        e.preventDefault();
+        isDrawing = false;
+        updateTeacherUI();
+      };
+      traceCanvas.onmousedown = start;
+      traceCanvas.onmousemove = move;
+      traceCanvas.onmouseup = end;
+      traceCanvas.onmouseleave = end;
+      traceCanvas.ontouchstart = start;
+      traceCanvas.ontouchmove = move;
+      traceCanvas.ontouchend = end;
+      traceCanvas.ontouchcancel = end;
+    }
+
+    function normalizePoint(pos) {
+      const rect = traceCanvas.getBoundingClientRect();
+      return {
+        x: Math.max(0, Math.min(1, pos.x / rect.width)),
+        y: Math.max(0, Math.min(1, pos.y / rect.height))
+      };
+    }
+
+    // --- simple smoothing: moving average + light decimation ---
+    function smoothStroke(stroke) {
+      if (!stroke || stroke.length <= 3) return stroke;
+      const smoothed = [];
+      smoothed.push(stroke[0]); // keep first
+      for (let i = 1; i < stroke.length - 1; i++) {
+        const pPrev = stroke[i - 1];
+        const p = stroke[i];
+        const pNext = stroke[i + 1];
+        smoothed.push({
+          x: (pPrev.x + p.x + pNext.x) / 3,
+          y: (pPrev.y + p.y + pNext.y) / 3
+        });
+      }
+      smoothed.push(stroke[stroke.length - 1]); // keep last
+
+      // optional: keep every 2nd point if very dense
+      const MAX_POINTS = 180;
+      if (smoothed.length <= MAX_POINTS) return smoothed;
+      const step = Math.ceil(smoothed.length / MAX_POINTS);
+      const decimated = [];
+      for (let i = 0; i < smoothed.length; i += step) {
+        decimated.push(smoothed[i]);
+      }
+      if (decimated[decimated.length - 1] !== smoothed[smoothed.length - 1]) {
+        decimated.push(smoothed[smoothed.length - 1]);
+      }
+      return decimated;
+    }
+
+    // ---- initial screen ----
+    renderLetters(UYIR, "Uyir Ezhuthukkal");
+  </script>
+</body>
+</html>
