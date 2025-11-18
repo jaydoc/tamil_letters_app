@@ -693,6 +693,7 @@
     let recordedStrokes = [];
     let demoRunning = false;
     let demoSpeed = 0.015;
+	let penSize = parseInt(localStorage.getItem("penSize") || "6", 10);
 
     function renderTrace() {
       contentEl.innerHTML = "";
@@ -766,6 +767,34 @@
       clearBtn.addEventListener("click", () => {
         clearCanvas(true);
       });
+	  
+	  // Pen size control
+      const penSizeLabel = document.createElement("span");
+      penSizeLabel.style.fontSize = "0.8rem";
+      penSizeLabel.textContent = "Pen size:";
+
+      const penSizeInput = document.createElement("input");
+      penSizeInput.type = "range";
+      penSizeInput.min = "3";
+      penSizeInput.max = "18";
+      penSizeInput.step = "1";
+      penSizeInput.value = String(penSize);
+      penSizeInput.style.verticalAlign = "middle";
+
+      penSizeInput.addEventListener("input", () => {
+        penSize = parseInt(penSizeInput.value, 10) || 6;
+        localStorage.setItem("penSize", String(penSize));
+      });
+
+      const penSizeWrapper = document.createElement("div");
+      penSizeWrapper.style.display = "inline-flex";
+      penSizeWrapper.style.alignItems = "center";
+      penSizeWrapper.style.gap = "0.25rem";
+      penSizeWrapper.appendChild(penSizeLabel);
+      penSizeWrapper.appendChild(penSizeInput);
+
+      controls.appendChild(penSizeWrapper);
+
 
       const recordBtn = document.createElement("button");
       recordBtn.className = "btn";
@@ -979,7 +1008,7 @@
 
         traceCtx.save();
         traceCtx.strokeStyle = "#e35b5b";
-        traceCtx.lineWidth = 6;
+        traceCtx.lineWidth = penSize;
         traceCtx.lineCap = "round";
         traceCtx.lineJoin = "round";
 
@@ -1069,7 +1098,7 @@
         e.preventDefault();
         const pos = getPos(e);
         traceCtx.strokeStyle = (creatorMode && teacherMode && recording) ? "#ff7b7b" : "#4a90e2";
-        traceCtx.lineWidth = 6;
+        traceCtx.lineWidth = penSize;
         traceCtx.lineCap = "round";
         traceCtx.lineJoin = "round";
         traceCtx.beginPath();
