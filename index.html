@@ -1,1123 +1,1185 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-			<title>Tamil Kids – Letters, Tracing, Activities & Games</title>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<style>
-    :root {
-      --bg: #f6f6fb;
-      --accent: #7267f0;
-      --card-bg: #ffffff;
-      --text-main: #222;
-      --text-muted: #555;
-      --radius-lg: 1.4rem;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #fff7e6, #f6f6fb 40%, #e6f3ff);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-    }
-    .app { width: 100%; max-width: 900px; padding: 1.5rem 1rem 2rem; }
+  <head>
+    <meta charset="UTF-8">
+    <title>Tamil Kids – Letters, Tracing, Activities & Games</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      :root {
+        --bg: #f6f6fb;
+        --accent: #7267f0;
+        --card-bg: #ffffff;
+        --text-main: #222;
+        --text-muted: #555;
+        --radius-lg: 1.4rem;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top left, #fff7e6, #f6f6fb 40%, #e6f3ff);
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+      }
+      .app { width: 100%; max-width: 900px; padding: 1.5rem 1rem 2rem; }
 
-    header { text-align: center; margin-bottom: 1.2rem; }
-    .title { font-size: 2.2rem; margin: 0; cursor: default; }
-    .subtitle { margin: 0.15rem 0 0.4rem; color: var(--text-muted); font-size: 0.95rem; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: rgba(255,255,255,0.7); padding: 0.3rem 0.9rem;
-      border-radius: 999px; font-size: 0.8rem; color: var(--text-muted);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    }
-    .top-header-row {
-      display: flex; justify-content: center; gap: 0.5rem;
-      align-items: center; flex-wrap: wrap; margin-top: 0.4rem;
-    }
-    .greeting {
-      font-size: 0.9rem; color: var(--text-muted);
-    }
-    .stars-pill {
-      font-size: 0.9rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(255, 215, 0, 0.16);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      display: inline-flex; align-items: center; gap: 0.25rem;
-    }
-    .stars-pill.pop {
-      animation: star-pop 0.3s ease-out;
-    }
-    @keyframes star-pop {
-      0% { transform: scale(1); }
-      40% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
+      header { text-align: center; margin-bottom: 1.2rem; }
+      .title { font-size: 2.2rem; margin: 0; cursor: default; }
+      .subtitle { margin: 0.15rem 0 0.4rem; color: var(--text-muted); font-size: 0.95rem; }
+      .pill {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        background: rgba(255,255,255,0.7); padding: 0.3rem 0.9rem;
+        border-radius: 999px; font-size: 0.8rem; color: var(--text-muted);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      }
+      .top-header-row {
+        display: flex; justify-content: center; gap: 0.5rem;
+        align-items: center; flex-wrap: wrap; margin-top: 0.4rem;
+      }
+      .greeting {
+        font-size: 0.9rem; color: var(--text-muted);
+      }
+      .stars-pill {
+        font-size: 0.9rem;
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(255, 215, 0, 0.16);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        display: inline-flex; align-items: center; gap: 0.25rem;
+      }
+      .stars-pill.pop {
+        animation: star-pop 0.3s ease-out;
+      }
+      @keyframes star-pop {
+        0% { transform: scale(1); }
+        40% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+      }
 
-    .tabs {
-      display: flex; gap: 0.5rem; background: rgba(255,255,255,0.7);
-      padding: 0.25rem; border-radius: 999px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06); margin-bottom: 1rem;
-      overflow-x: auto;
-    }
-    .tab-btn {
-      flex: 1; border: none; background: transparent;
-      padding: 0.55rem 0.5rem; border-radius: 999px;
-      font-size: 0.9rem; cursor: pointer; color: var(--text-muted);
-      white-space: nowrap;
-      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
-    }
-    .tab-btn.active {
-      background: var(--accent); color: #fff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(114,103,240,0.35);
-    }
+      .tabs {
+        display: flex; gap: 0.5rem; background: rgba(255,255,255,0.7);
+        padding: 0.25rem; border-radius: 999px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06); margin-bottom: 1rem;
+        overflow-x: auto;
+      }
+      .tab-btn {
+        flex: 1; border: none; background: transparent;
+        padding: 0.55rem 0.5rem; border-radius: 999px;
+        font-size: 0.9rem; cursor: pointer; color: var(--text-muted);
+        white-space: nowrap;
+        transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+      }
+      .tab-btn.active {
+        background: var(--accent); color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(114,103,240,0.35);
+      }
 
-    .section-title { margin: 0 0 0.5rem; font-size: 1.2rem; text-align: center; }
-    .hint { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.75rem; }
-    .card {
-      background: var(--card-bg); border-radius: var(--radius-lg);
-      padding: 0.7rem 0.4rem; border: none; width: 100%; aspect-ratio: 1 / 1;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(120, 120, 200, 0.18);
-      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
-    }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(120,120,200,0.25);
-      background: #ffffff;
-    }
-    .card-main { font-size: 2.1rem; margin-bottom: 0.3rem; }
-    .card-sub { font-size: 0.9rem; opacity: 0.7; }
+      .section-title { margin: 0 0 0.5rem; font-size: 1.2rem; text-align: center; }
+      .hint { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.75rem; }
+      .card {
+        background: var(--card-bg); border-radius: var(--radius-lg);
+        padding: 0.7rem 0.4rem; border: none; width: 100%; aspect-ratio: 1 / 1;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(120, 120, 200, 0.18);
+        transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(120,120,200,0.25);
+        background: #ffffff;
+      }
+      .card-main { font-size: 2.1rem; margin-bottom: 0.3rem; }
+      .card-sub { font-size: 0.9rem; opacity: 0.7; }
 
-    .controls {
-      display: flex; justify-content: center; gap: 0.5rem;
-      margin-bottom: 0.75rem; flex-wrap: wrap;
-    }
-    .btn {
-      border-radius: 999px; border: none; padding: 0.45rem 0.9rem;
-      font-size: 0.9rem; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.08); background: #ffffff;
-    }
-    .btn-primary {
-      background: var(--accent); color: #fff;
-      box-shadow: 0 4px 12px rgba(114,103,240,0.4);
-    }
-    .btn-ghost { background: rgba(255,255,255,0.9); }
+      .controls {
+        display: flex; justify-content: center; gap: 0.5rem;
+        margin-bottom: 0.75rem; flex-wrap: wrap;
+      }
+      .btn {
+        border-radius: 999px; border: none; padding: 0.45rem 0.9rem;
+        font-size: 0.9rem; cursor: pointer;
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.08); background: #ffffff;
+      }
+      .btn-primary {
+        background: var(--accent); color: #fff;
+        box-shadow: 0 4px 12px rgba(114,103,240,0.4);
+      }
+      .btn-ghost { background: rgba(255,255,255,0.9); }
 
-    .feedback { text-align: center; font-size: 0.95rem; margin-top: 0.5rem; min-height: 1.2rem; }
-    .feedback.ok { color: #0a8a4b; }
-    .feedback.err { color: #c0392b; }
+      .feedback { text-align: center; font-size: 0.95rem; margin-top: 0.5rem; min-height: 1.2rem; }
+      .feedback.ok { color: #0a8a4b; }
+      .feedback.err { color: #c0392b; }
 
-    .trace-wrapper {
-      max-width: 560px; margin: 0 auto;
-      background: rgba(255,255,255,0.9);
-      border-radius: 1.5rem; padding: 0.75rem;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    }
-    .trace-top {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.85rem; color: var(--text-muted);
-      margin-bottom: 0.4rem; gap: 0.5rem; flex-wrap: wrap;
-    }
-    .mode-toggle {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.2rem 0.6rem; border-radius: 999px;
-      background: rgba(114,103,240,0.08); font-size: 0.8rem;
-    }
-    .mode-toggle input { accent-color: var(--accent); }
+      .trace-wrapper {
+        max-width: 560px; margin: 0 auto;
+        background: rgba(255,255,255,0.9);
+        border-radius: 1.5rem; padding: 0.75rem;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      }
+      .trace-top {
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.85rem; color: var(--text-muted);
+        margin-bottom: 0.4rem; gap: 0.5rem; flex-wrap: wrap;
+      }
+      .mode-toggle {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.2rem 0.6rem; border-radius: 999px;
+        background: rgba(114,103,240,0.08); font-size: 0.8rem;
+      }
+      .mode-toggle input { accent-color: var(--accent); }
 
-    .trace-canvas-wrap {
-      position: relative; border-radius: 1.2rem; overflow: hidden;
-      background: repeating-linear-gradient(
-        0deg, #f9f9ff, #f9f9ff 10px, #eef1ff 10px, #eef1ff 20px
-      );
-      border: 1px solid #dde0ff;
-    }
-    canvas#traceCanvas { width: 100%; height: 280px; touch-action: none; display: block; }
+      .trace-canvas-wrap {
+        position: relative; border-radius: 1.2rem; overflow: hidden;
+        background: repeating-linear-gradient(
+          0deg, #f9f9ff, #f9f9ff 10px, #eef1ff 10px, #eef1ff 20px
+        );
+        border: 1px solid #dde0ff;
+      }
+      canvas#traceCanvas { width: 100%; height: 280px; touch-action: none; display: block; }
 
-    .trace-info {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;
-      gap: 0.5rem; flex-wrap: wrap;
-    }
-    .export-box {
-      margin-top: 0.6rem;
-      font-size: 0.75rem;
-    }
-    .export-box textarea {
-      width: 100%;
-      min-height: 80px;
-      font-size: 0.7rem;
-      font-family: monospace;
-      border-radius: 0.6rem;
-      border: 1px solid #ddd;
-      padding: 0.4rem;
-      resize: vertical;
-    }
+      .trace-info {
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;
+        gap: 0.5rem; flex-wrap: wrap;
+      }
+      .export-box {
+        margin-top: 0.6rem;
+        font-size: 0.75rem;
+      }
+      .export-box textarea {
+        width: 100%;
+        min-height: 80px;
+        font-size: 0.7rem;
+        font-family: monospace;
+        border-radius: 0.6rem;
+        border: 1px solid #ddd;
+        padding: 0.4rem;
+        resize: vertical;
+      }
 
-    .activities-wrapper {
-      max-width: 700px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.9);
-      border-radius: 1.5rem;
-      padding: 0.75rem;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    }
-    .activities-wrapper iframe {
-      width: 100%;
-      border-radius: 1rem;
-      border: none;
-      min-height: 420px;
-    }
+      .activities-wrapper {
+        max-width: 700px;
+        margin: 0 auto;
+        background: rgba(255,255,255,0.9);
+        border-radius: 1.5rem;
+        padding: 0.75rem;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      }
+      .activities-wrapper iframe {
+        width: 100%;
+        border-radius: 1rem;
+        border: none;
+        min-height: 420px;
+      }
 
-    footer { margin-top: 1.4rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
-    .small { font-size: 0.8rem; }
+      footer { margin-top: 1.4rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+      .small { font-size: 0.8rem; }
 
-    /* Name modal */
-    .modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.45);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .modal {
-      background: #ffffff;
-      border-radius: 1rem;
-      padding: 1rem 1.2rem 1rem;
-      max-width: 320px;
-      width: 90%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      text-align: center;
-    }
-    .modal h2 {
-      margin: 0 0 0.5rem;
-      font-size: 1.2rem;
-    }
-    .modal p {
-      margin: 0 0 0.6rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-    .modal input {
-      width: 100%;
-      padding: 0.45rem 0.6rem;
-      border-radius: 0.6rem;
-      border: 1px solid #ccc;
-      font-size: 0.95rem;
-      margin-bottom: 0.7rem;
-    }
-    .modal button {
-      border-radius: 999px;
-      border: none;
-      padding: 0.45rem 1.1rem;
-      background: var(--accent);
-      color: #fff;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    .hidden { display: none !important; }
+      /* Name modal */
+      .modal-backdrop {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .modal {
+        background: #ffffff;
+        border-radius: 1rem;
+        padding: 1rem 1.2rem 1rem;
+        max-width: 320px;
+        width: 90%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+        text-align: center;
+      }
+      .modal h2 {
+        margin: 0 0 0.5rem;
+        font-size: 1.2rem;
+      }
+      .modal p {
+        margin: 0 0 0.6rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+      .modal input {
+        width: 100%;
+        padding: 0.45rem 0.6rem;
+        border-radius: 0.6rem;
+        border: 1px solid #ccc;
+        font-size: 0.95rem;
+        margin-bottom: 0.7rem;
+      }
+      .modal button {
+        border-radius: 999px;
+        border: none;
+        padding: 0.45rem 1.1rem;
+        background: var(--accent);
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+      .hidden { display: none !important; }
 
-    @media (max-width: 480px) {
-      .title { font-size: 1.8rem; }
-      canvas#traceCanvas { height: 230px; }
-    }
-  </style>
-			</head>
-			<body>
-				<div class="app">
-					<header>
-						<div class="pill">
-							<span>தமிழ்</span> • <span>for kids</span>
-						</div>
-						<h1 class="title" id="appTitle">Tamil Kids Letters</h1>
-						<p class="subtitle" id="subtitle">Tap, trace, sort vowels, and play games.</p>
-						<div class="top-header-row">
-							<div class="greeting" id="greeting"/>
-							<div class="stars-pill" id="stars-pill">⭐ <span id="stars-count">0</span>
-							</div>
-						</div>
-					</header>
-					<nav class="tabs">
-						<button class="tab-btn active" data-tab="uyir">Uyir (Vowels)</button>
-						<button class="tab-btn" data-tab="mei">Mei (Consonants)</button>
-						<button class="tab-btn" data-tab="trace">✏️ Trace letters</button>
-						<button class="tab-btn" data-tab="game">🎮 Game</button>
-						<button class="tab-btn" data-tab="activities">📚 Activities</button>
-					</nav>
-					<main id="content"/>
-					<footer>
-						<div>Kids: use the tabs to learn and play. Creators: hidden tools let you refine strokes.</div>
-						<div class="small">Add MP3 audio files in <code>audio/</code> to enable sounds.</div>
-					</footer>
-				</div>
-				<!-- Child name modal -->
-				<div id="nameModal" class="modal-backdrop hidden">
-					<div class="modal">
-						<h2>வணக்கம்! 😊</h2>
-						<p>What is your name?</p>
-						<input type="text" id="kidNameInput" placeholder="Type your name..."/>
-						<button id="kidNameSaveBtn">Let's start</button>
-					</div>
-				</div>
-				<!-- external stroke data -->
-				<script src="strokes.js"/>
-				<script>
-    // ---- Data ----
-    const UYIR = [
-      { id: "a",  tamil: "அ", translit: "a",  audioId: "a"  },
-      { id: "aa", tamil: "ஆ", translit: "aa", audioId: "aa" },
-      { id: "i",  tamil: "இ", translit: "i",  audioId: "i"  },
-      { id: "ii", tamil: "ஈ", translit: "ii", audioId: "ii" },
-      { id: "u",  tamil: "உ", translit: "u",  audioId: "u"  },
-      { id: "uu", tamil: "ஊ", translit: "uu", audioId: "uu" },
-      { id: "e",  tamil: "எ", translit: "e",  audioId: "e"  },
-      { id: "ee", tamil: "ஏ", translit: "ee", audioId: "ee" },
-      { id: "ai", tamil: "ஐ", translit: "ai", audioId: "ai" },
-      { id: "o",  tamil: "ஒ", translit: "o",  audioId: "o"  },
-      { id: "oo", tamil: "ஓ", translit: "oo", audioId: "oo" },
-      { id: "au", tamil: "ஔ", translit: "au", audioId: "au" }
-    ];
+      @media (max-width: 480px) {
+        .title { font-size: 1.8rem; }
+        canvas#traceCanvas { height: 230px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <div class="pill">
+          <span>தமிழ்</span> • <span>for kids</span>
+        </div>
+        <h1 class="title" id="appTitle">Tamil Kids Letters</h1>
+        <p class="subtitle" id="subtitle">Tap, trace, sort vowels, and play games.</p>
+        <div class="top-header-row">
+          <div class="greeting" id="greeting"></div>
+          <div class="stars-pill" id="stars-pill">
+            ⭐ <span id="stars-count">0</span>
+          </div>
+        </div>
+      </header>
 
-    const MEI = [
-      { id: "k",  tamil: "க்", translit: "k",  audioId: "mei_k"  },
-      { id: "ng", tamil: "ங்", translit: "ng", audioId: "mei_ng" },
-      { id: "ch", tamil: "ச்", translit: "ch", audioId: "mei_ch" },
-      { id: "nj", tamil: "ஞ்", translit: "nj", audioId: "mei_nj" },
-      { id: "t",  tamil: "ட்", translit: "t",  audioId: "mei_t"  },
-      { id: "n1", tamil: "ண்", translit: "n",  audioId: "mei_n1" },
-      { id: "th", tamil: "த்", translit: "th", audioId: "mei_th" },
-      { id: "n2", tamil: "ந்", translit: "n",  audioId: "mei_n2" },
-      { id: "p",  tamil: "ப்", translit: "p",  audioId: "mei_p"  },
-      { id: "m",  tamil: "ம்", translit: "m",  audioId: "mei_m"  },
-      { id: "y",  tamil: "ய்", translit: "y",  audioId: "mei_y"  },
-      { id: "r1", tamil: "ர்", translit: "r",  audioId: "mei_r1" },
-      { id: "l1", tamil: "ல்", translit: "l",  audioId: "mei_l1" },
-      { id: "v",  tamil: "வ்", translit: "v",  audioId: "mei_v"  },
-      { id: "z",  tamil: "ழ்", translit: "zh", audioId: "mei_z" },
-      { id: "l2", tamil: "ள்", translit: "l",  audioId: "mei_l2" },
-      { id: "r2", tamil: "ற்", translit: "r",  audioId: "mei_r2" },
-      { id: "n3", tamil: "ன்", translit: "n",  audioId: "mei_n3" }
-    ];
+      <nav class="tabs">
+        <button class="tab-btn active" data-tab="uyir">Uyir (Vowels)</button>
+        <button class="tab-btn" data-tab="mei">Mei (Consonants)</button>
+        <button class="tab-btn" data-tab="trace">✏️ Trace letters</button>
+        <button class="tab-btn" data-tab="game">🎮 Game</button>
+        <button class="tab-btn" data-tab="activities">📚 Activities</button>
+      </nav>
 
-    const ALL = [...UYIR, ...MEI];
+      <main id="content"></main>
 
-    // ---- Stroke data: base from strokes.js, then override/extend from localStorage ----
-    let STROKE_DATA = (window.TAMIL_STROKE_DATA || {});
-    try {
-      const stored = localStorage.getItem("tamilStrokeData");
-      if (stored) {
-        const extra = JSON.parse(stored);
-        for (const key in extra) {
-          STROKE_DATA[key] = extra[key];
+      <footer>
+        <div>Kids: use the tabs to learn and play. Creators: hidden tools let you refine strokes.</div>
+        <div class="small">Add MP3 audio files in <code>audio/</code> to enable sounds.</div>
+      </footer>
+    </div>
+
+    <!-- Child name modal -->
+    <div id="nameModal" class="modal-backdrop hidden">
+      <div class="modal">
+        <h2>வணக்கம்! 😊</h2>
+        <p>What is your name?</p>
+        <input type="text" id="kidNameInput" placeholder="Type your name..." />
+        <button id="kidNameSaveBtn">Let's start</button>
+      </div>
+    </div>
+
+    <!-- external stroke data -->
+    <script src="strokes.js"></script>
+
+    <script>
+      // ---- Data ----
+      const UYIR = [
+        { id: "a",  tamil: "அ", translit: "a",  audioId: "a"  },
+        { id: "aa", tamil: "ஆ", translit: "aa", audioId: "aa" },
+        { id: "i",  tamil: "இ", translit: "i",  audioId: "i"  },
+        { id: "ii", tamil: "ஈ", translit: "ii", audioId: "ii" },
+        { id: "u",  tamil: "உ", translit: "u",  audioId: "u"  },
+        { id: "uu", tamil: "ஊ", translit: "uu", audioId: "uu" },
+        { id: "e",  tamil: "எ", translit: "e",  audioId: "e"  },
+        { id: "ee", tamil: "ஏ", translit: "ee", audioId: "ee" },
+        { id: "ai", tamil: "ஐ", translit: "ai", audioId: "ai" },
+        { id: "o",  tamil: "ஒ", translit: "o",  audioId: "o"  },
+        { id: "oo", tamil: "ஓ", translit: "oo", audioId: "oo" },
+        { id: "au", tamil: "ஔ", translit: "au", audioId: "au" }
+      ];
+
+      const MEI = [
+        { id: "k",  tamil: "க்", translit: "k",  audioId: "mei_k"  },
+        { id: "ng", tamil: "ங்", translit: "ng", audioId: "mei_ng" },
+        { id: "ch", tamil: "ச்", translit: "ch", audioId: "mei_ch" },
+        { id: "nj", tamil: "ஞ்", translit: "nj", audioId: "mei_nj" },
+        { id: "t",  tamil: "ட்", translit: "t",  audioId: "mei_t"  },
+        { id: "n1", tamil: "ண்", translit: "n",  audioId: "mei_n1" },
+        { id: "th", tamil: "த்", translit: "th", audioId: "mei_th" },
+        { id: "n2", tamil: "ந்", translit: "n",  audioId: "mei_n2" },
+        { id: "p",  tamil: "ப்", translit: "p",  audioId: "mei_p"  },
+        { id: "m",  tamil: "ம்", translit: "m",  audioId: "mei_m"  },
+        { id: "y",  tamil: "ய்", translit: "y",  audioId: "mei_y"  },
+        { id: "r1", tamil: "ர்", translit: "r",  audioId: "mei_r1" },
+        { id: "l1", tamil: "ல்", translit: "l",  audioId: "mei_l1" },
+        { id: "v",  tamil: "வ்", translit: "v",  audioId: "mei_v"  },
+        { id: "z",  tamil: "ழ்", translit: "zh", audioId: "mei_z" },
+        { id: "l2", tamil: "ள்", translit: "l",  audioId: "mei_l2" },
+        { id: "r2", tamil: "ற்", translit: "r",  audioId: "mei_r2" },
+        { id: "n3", tamil: "ன்", translit: "n",  audioId: "mei_n3" }
+      ];
+
+      const ALL = [...UYIR, ...MEI];
+
+      // ---- Stroke data: base from strokes.js, then override/extend from localStorage ----
+      let STROKE_DATA = (window.TAMIL_STROKE_DATA || {});
+      try {
+        const stored = localStorage.getItem("tamilStrokeData");
+        if (stored) {
+          const extra = JSON.parse(stored);
+          for (const key in extra) {
+            STROKE_DATA[key] = extra[key];
+          }
+        }
+      } catch (e) {
+        console.warn("Could not load local stroke data:", e);
+      }
+
+      function saveStrokeData() {
+        try {
+          localStorage.setItem("tamilStrokeData", JSON.stringify(STROKE_DATA));
+        } catch (e) {
+          console.warn("Could not save stroke data:", e);
         }
       }
-    } catch (e) {
-      console.warn("Could not load local stroke data:", e);
-    }
 
-    function saveStrokeData() {
-      try {
-        localStorage.setItem("tamilStrokeData", JSON.stringify(STROKE_DATA));
-      } catch (e) {
-        console.warn("Could not save stroke data:", e);
+      // ---- Kid profile + stars + creator mode ----
+      // use sessionStorage so name does not persist across browser sessions
+      let kidName = (sessionStorage.getItem("kidName") || "").trim();
+      let starCount = parseInt(localStorage.getItem("kidStars") || "0", 10) || 0;
+      let creatorMode = false;
+      let currentTab = "uyir";
+
+      const contentEl = document.getElementById("content");
+      const tabButtons = document.querySelectorAll(".tab-btn");
+
+      function updateKidUI() {
+        const greetingEl = document.getElementById("greeting");
+        const subtitleEl = document.getElementById("subtitle");
+        const starsCountEl = document.getElementById("stars-count");
+        if (kidName) {
+          greetingEl.textContent = `Hi, ${kidName}! Let’s learn Tamil.`;
+          subtitleEl.textContent = "Tap, trace, and play games with your letters.";
+        } else {
+          greetingEl.textContent = "";
+          subtitleEl.textContent = "Tap, trace, sort vowels, and play games.";
+        }
+        starsCountEl.textContent = starCount;
       }
-    }
 
-    // ---- Kid profile + stars + creator mode ----
-    // use sessionStorage so name does not persist "forever" across sessions
-    let kidName = (sessionStorage.getItem("kidName") || "").trim();
-    let starCount = parseInt(localStorage.getItem("kidStars") || "0", 10) || 0;
-    let creatorMode = false;
-    let currentTab = "uyir";
-
-    const contentEl = document.getElementById("content");
-    const tabButtons = document.querySelectorAll(".tab-btn");
-
-    function updateKidUI() {
-      const greetingEl = document.getElementById("greeting");
-      const subtitleEl = document.getElementById("subtitle");
-      const starsCountEl = document.getElementById("stars-count");
-      if (kidName) {
-        greetingEl.textContent = `Hi, ${kidName}! Let’s learn Tamil.`;
-        subtitleEl.textContent = "Tap, trace, and play games with your letters.";
-      } else {
-        greetingEl.textContent = "";
-        subtitleEl.textContent = "Tap, trace, sort vowels, and play games.";
+      function bumpStarsUI() {
+        const pill = document.getElementById("stars-pill");
+        if (!pill) return;
+        pill.classList.remove("pop");
+        void pill.offsetWidth; // force reflow
+        pill.classList.add("pop");
       }
-      starsCountEl.textContent = starCount;
-    }
 
-    function bumpStarsUI() {
-      const pill = document.getElementById("stars-pill");
-      if (!pill) return;
-      pill.classList.remove("pop");
-      void pill.offsetWidth; // force reflow
-      pill.classList.add("pop");
-    }
-
-    function addStar() {
-      starCount += 1;
-      localStorage.setItem("kidStars", String(starCount));
-      updateKidUI();
-      bumpStarsUI();
-    }
-
-    function initKidProfile() {
-      if (kidName) {
+      function addStar() {
+        starCount += 1;
+        localStorage.setItem("kidStars", String(starCount));
         updateKidUI();
-        return;
-      }
-      const modal = document.getElementById("nameModal");
-      const input = document.getElementById("kidNameInput");
-      const btn = document.getElementById("kidNameSaveBtn");
-
-      modal.classList.remove("hidden");
-      input.value = "";
-      input.focus();
-
-      function saveName() {
-        const v = input.value.trim();
-        if (!v) return;
-        kidName = v;
-        sessionStorage.setItem("kidName", kidName);
-        updateKidUI();
-        modal.classList.add("hidden");
+        bumpStarsUI();
       }
 
-      btn.onclick = saveName;
-      input.onkeydown = (e) => {
-        if (e.key === "Enter") saveName();
-      };
-    }
+      function initKidProfile() {
+        if (kidName) {
+          updateKidUI();
+          return;
+        }
+        const modal = document.getElementById("nameModal");
+        const input = document.getElementById("kidNameInput");
+        const btn = document.getElementById("kidNameSaveBtn");
 
-    // Hidden creator mode: double-click title
-    const appTitle = document.getElementById("appTitle");
-    appTitle.addEventListener("dblclick", () => {
-      creatorMode = !creatorMode;
-      if (creatorMode) {
-        console.log("Creator mode ON");
-      } else {
-        console.log("Creator mode OFF");
-      }
-      // re-render current tab so trace UI updates
-      if (currentTab === "uyir") renderLetters(UYIR, "Uyir Ezhuthukkal");
-      else if (currentTab === "mei") renderLetters(MEI, "Mei Ezhuthukkal");
-      else if (currentTab === "trace") renderTrace();
-      else if (currentTab === "game") renderGame();
-      else if (currentTab === "activities") renderActivities();
-    });
+        modal.classList.remove("hidden");
+        input.value = "";
+        input.focus();
 
-    // ---- Audio helper ----
-    const audioCache = {};
-    function playSound(audioId) {
-      const src = "audio/" + audioId + ".mp3";
-      if (!audioCache[audioId]) {
-        audioCache[audioId] = new Audio(src);
-      }
-      const audio = audioCache[audioId];
-      audio.currentTime = 0;
-      audio.play().catch(() => {
-        console.warn("Audio could not play. Check file:", src);
-      });
-    }
+        function saveName() {
+          const v = input.value.trim();
+          if (!v) return;
+          kidName = v;
+          sessionStorage.setItem("kidName", kidName);
+          updateKidUI();
+          modal.classList.add("hidden");
+        }
 
-    // ---- Tabs ----
-    tabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        tabButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        const tab = btn.getAttribute("data-tab");
-        currentTab = tab;
-        if (tab === "uyir") renderLetters(UYIR, "Uyir Ezhuthukkal");
-        else if (tab === "mei") renderLetters(MEI, "Mei Ezhuthukkal");
-        else if (tab === "trace") renderTrace();
-        else if (tab === "game") renderGame();
-        else if (tab === "activities") renderActivities();
-      });
-    });
-
-    function renderLetters(list, title) {
-      contentEl.innerHTML = "";
-      const h = document.createElement("h2");
-      h.className = "section-title";
-      h.textContent = title;
-
-      const hint = document.createElement("div");
-      hint.className = "hint";
-      if (kidName) {
-        hint.textContent = `${kidName}, tap a letter to hear its sound.`;
-      } else {
-        hint.textContent = "Tap a letter to hear the sound.";
+        btn.onclick = saveName;
+        input.onkeydown = (e) => {
+          if (e.key === "Enter") saveName();
+        };
       }
 
-      const grid = document.createElement("div");
-      grid.className = "grid";
-
-      list.forEach(letter => {
-        const btn = document.createElement("button");
-        btn.className = "card";
-        btn.addEventListener("click", () => playSound(letter.audioId));
-
-        const main = document.createElement("div");
-        main.className = "card-main";
-        main.textContent = letter.tamil;
-
-        const sub = document.createElement("div");
-        sub.className = "card-sub";
-        sub.textContent = letter.translit;
-
-        btn.appendChild(main);
-        btn.appendChild(sub);
-        grid.appendChild(btn);
+      // Hidden creator mode: double-click title
+      const appTitle = document.getElementById("appTitle");
+      appTitle.addEventListener("dblclick", () => {
+        creatorMode = !creatorMode;
+        if (creatorMode) {
+          console.log("Creator mode ON");
+        } else {
+          console.log("Creator mode OFF");
+        }
+        // re-render current tab so trace UI updates
+        if (currentTab === "uyir") renderLetters(UYIR, "Uyir Ezhuthukkal");
+        else if (currentTab === "mei") renderLetters(MEI, "Mei Ezhuthukkal");
+        else if (currentTab === "trace") renderTrace();
+        else if (currentTab === "game") renderGame();
+        else if (currentTab === "activities") renderActivities();
       });
 
-      contentEl.appendChild(h);
-      contentEl.appendChild(hint);
-      contentEl.appendChild(grid);
-    }
-
-    // ---- Game: Find the Sound ----
-    let gameTarget = null;
-    let options = [];
-    let gameRound = 0;
-    let gameCorrect = 0;
-    let gameOver = false;
-    const ROUNDS_PER_GAME = 10;
-
-    function renderGame() {
-      contentEl.innerHTML = "";
-      const h = document.createElement("h2");
-      h.className = "section-title";
-      h.textContent = "Game: Find the Sound";
-
-      const hint = document.createElement("div");
-      hint.className = "hint";
-      if (kidName) {
-        hint.textContent = `${kidName}, tap 🔊 to hear a sound, then tap the matching letter.`;
-      } else {
-        hint.textContent = "Tap 🔊 to hear a sound. Then tap the matching letter.";
+      // ---- Audio helper ----
+      const audioCache = {};
+      function playSound(audioId) {
+        const src = "audio/" + audioId + ".mp3";
+        if (!audioCache[audioId]) {
+          audioCache[audioId] = new Audio(src);
+        }
+        const audio = audioCache[audioId];
+        audio.currentTime = 0;
+        audio.play().catch(() => {
+          console.warn("Audio could not play. Check file:", src);
+        });
       }
 
-      const controls = document.createElement("div");
-      controls.className = "controls";
-
-      const playBtn = document.createElement("button");
-      playBtn.className = "btn btn-primary";
-      playBtn.innerHTML = "🔊 Play sound again";
-      playBtn.addEventListener("click", () => {
-        if (gameTarget) playSound(gameTarget.audioId);
+      // ---- Tabs ----
+      tabButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const tab = btn.getAttribute("data-tab");
+          currentTab = tab;
+          if (tab === "uyir") renderLetters(UYIR, "Uyir Ezhuthukkal");
+          else if (tab === "mei") renderLetters(MEI, "Mei Ezhuthukkal");
+          else if (tab === "trace") renderTrace();
+          else if (tab === "game") renderGame();
+          else if (tab === "activities") renderActivities();
+        });
       });
 
-      const nextBtn = document.createElement("button");
-      nextBtn.className = "btn btn-ghost";
-      nextBtn.textContent = "Next round";
-      nextBtn.addEventListener("click", () => {
-        newRound();
-      });
+      function renderLetters(list, title) {
+        contentEl.innerHTML = "";
+        const h = document.createElement("h2");
+        h.className = "section-title";
+        h.textContent = title;
 
-      const resetBtn = document.createElement("button");
-      resetBtn.className = "btn btn-ghost";
-      resetBtn.textContent = "New game (10 questions)";
-      resetBtn.addEventListener("click", () => {
+        const hint = document.createElement("div");
+        hint.className = "hint";
+        if (kidName) {
+          hint.textContent = `${kidName}, tap a letter to hear its sound.`;
+        } else {
+          hint.textContent = "Tap a letter to hear the sound.";
+        }
+
+        const grid = document.createElement("div");
+        grid.className = "grid";
+
+        list.forEach(letter => {
+          const btn = document.createElement("button");
+          btn.className = "card";
+          btn.addEventListener("click", () => playSound(letter.audioId));
+
+          const main = document.createElement("div");
+          main.className = "card-main";
+          main.textContent = letter.tamil;
+
+          const sub = document.createElement("div");
+          sub.className = "card-sub";
+          sub.textContent = letter.translit;
+
+          btn.appendChild(main);
+          btn.appendChild(sub);
+          grid.appendChild(btn);
+        });
+
+        contentEl.appendChild(h);
+        contentEl.appendChild(hint);
+        contentEl.appendChild(grid);
+      }
+
+      // ---- Game: Find the Sound ----
+      let gameTarget = null;
+      let options = [];
+      let gameRound = 0;
+      let gameCorrect = 0;
+      let gameOver = false;
+      const ROUNDS_PER_GAME = 10;
+
+      function renderGame() {
+        contentEl.innerHTML = "";
+        const h = document.createElement("h2");
+        h.className = "section-title";
+        h.textContent = "Game: Find the Sound";
+
+        const hint = document.createElement("div");
+        hint.className = "hint";
+        if (kidName) {
+          hint.textContent = `${kidName}, tap 🔊 to hear a sound, then tap the matching letter.`;
+        } else {
+          hint.textContent = "Tap 🔊 to hear a sound. Then tap the matching letter.";
+        }
+
+        const controls = document.createElement("div");
+        controls.className = "controls";
+
+        const playBtn = document.createElement("button");
+        playBtn.className = "btn btn-primary";
+        playBtn.innerHTML = "🔊 Play sound again";
+        playBtn.addEventListener("click", () => {
+          if (gameTarget) playSound(gameTarget.audioId);
+        });
+
+        const nextBtn = document.createElement("button");
+        nextBtn.className = "btn btn-ghost";
+        nextBtn.textContent = "Next round";
+        nextBtn.addEventListener("click", () => {
+          newRound();
+        });
+
+        const resetBtn = document.createElement("button");
+        resetBtn.className = "btn btn-ghost";
+        resetBtn.textContent = "New game (10 questions)";
+        resetBtn.addEventListener("click", () => {
+          gameRound = 0;
+          gameCorrect = 0;
+          gameOver = false;
+          const feedbackEl = document.querySelector(".feedback");
+          if (feedbackEl) {
+            feedbackEl.textContent = "";
+            feedbackEl.className = "feedback";
+          }
+          newRound();
+        });
+
+        controls.appendChild(playBtn);
+        controls.appendChild(nextBtn);
+        controls.appendChild(resetBtn);
+
+        const grid = document.createElement("div");
+        grid.className = "grid game-grid";
+
+        const feedback = document.createElement("div");
+        feedback.className = "feedback";
+
+        contentEl.appendChild(h);
+        contentEl.appendChild(hint);
+        contentEl.appendChild(controls);
+        contentEl.appendChild(grid);
+        contentEl.appendChild(feedback);
+
+        // start a fresh game
         gameRound = 0;
         gameCorrect = 0;
         gameOver = false;
-        const feedbackEl = document.querySelector(".feedback");
-        if (feedbackEl) {
-          feedbackEl.textContent = "";
-          feedbackEl.className = "feedback";
-        }
         newRound();
-      });
-
-      controls.appendChild(playBtn);
-      controls.appendChild(nextBtn);
-      controls.appendChild(resetBtn);
-
-      const grid = document.createElement("div");
-      grid.className = "grid game-grid";
-
-      const feedback = document.createElement("div");
-      feedback.className = "feedback";
-
-      contentEl.appendChild(h);
-      contentEl.appendChild(hint);
-      contentEl.appendChild(controls);
-      contentEl.appendChild(grid);
-      contentEl.appendChild(feedback);
-
-      // start a fresh game
-      gameRound = 0;
-      gameCorrect = 0;
-      gameOver = false;
-      newRound();
-    }
-
-    function renderGameOptions(grid) {
-      grid.innerHTML = "";
-      options.forEach(letter => {
-        const btn = document.createElement("button");
-        btn.className = "card";
-        btn.addEventListener("click", () => handleGuess(letter));
-        const main = document.createElement("div");
-        main.className = "card-main";
-        main.textContent = letter.tamil;
-        const sub = document.createElement("div");
-        sub.className = "card-sub";
-        sub.textContent = letter.translit;
-        btn.appendChild(main);
-        btn.appendChild(sub);
-        grid.appendChild(btn);
-      });
-    }
-
-    function newRound() {
-      if (gameOver) {
-        const feedbackEl = document.querySelector(".feedback");
-        if (feedbackEl) {
-          const namePart = kidName ? `, ${kidName}` : "";
-          feedbackEl.textContent =
-            `🎉 You finished ${ROUNDS_PER_GAME} questions${namePart}! Tap “New game” to play again.`;
-          feedbackEl.className = "feedback ok";
-        }
-        return;
       }
 
-      if (ALL.length < 4) return; const grid=document.querySelector(".grid.game-grid" ); const feedbackEl=document.querySelector(".feedback" ); const shuffled=[...ALL].sort(()=> Math.random() - 0.5);
-      options = shuffled.slice(0, 4);
-      gameTarget = options[Math.floor(Math.random() * options.length)];
-
-      if (feedbackEl) {
-        feedbackEl.textContent = `Question ${gameRound + 1} of ${ROUNDS_PER_GAME}`;
-        feedbackEl.className = "feedback";
-      }
-
-      if (grid) {
-        renderGameOptions(grid);
-      }
-
-      if (gameTarget) {
-        playSound(gameTarget.audioId);
-      }
-    }
-
-    function handleGuess(letter) {
-      const feedbackEl = document.querySelector(".feedback");
-      if (!gameTarget || !feedbackEl || gameOver) return;
-
-      if (letter.id === gameTarget.id) {
-        // correct
-        gameRound += 1;
-        gameCorrect += 1;
-        addStar();
-
-        const namePart = kidName ? `, ${kidName}` : "";
-
-        if (gameRound >= ROUNDS_PER_GAME) {
-          gameOver = true;
-          feedbackEl.textContent =
-            `🎉 Superb${namePart}! You finished ${ROUNDS_PER_GAME} questions and got ${gameCorrect} right.`;
-          feedbackEl.className = "feedback ok";
-          gameTarget = null;
-        } else {
-          feedbackEl.textContent =
-            `✅ சரி${namePart}! That was question ${gameRound} of ${ROUNDS_PER_GAME}. Tap “Next round” to continue.`;
-          feedbackEl.className = "feedback ok";
-          // freeze this round; Next round must be tapped
-          gameTarget = null;
-        }
-      } else {
-        const namePart = kidName ? `, ${kidName}` : "";
-        feedbackEl.textContent = `❌ மீண்டும் முயற்சி செய்${namePart}! (Try again!)`;
-        feedbackEl.className = "feedback err";
-      }
-    }
-
-    // ---- Activities: H5P vowel sorting embed ----
-    function renderActivities() {
-      contentEl.innerHTML = "";
-      const h = document.createElement("h2");
-      h.className = "section-title";
-      h.textContent = "Activities: Sort Long & Short Vowels";
-
-      const hint = document.createElement("div");
-      hint.className = "hint";
-      hint.textContent = "This activity is loaded from MSU Basic Tamil (internet required).";
-
-      const wrap = document.createElement("div");
-      wrap.className = "activities-wrapper";
-
-      const iframe = document.createElement("iframe");
-      iframe.src = "https://openbooks.lib.msu.edu/basictamil/wp-admin/admin-ajax.php?action=h5p_embed&id=3";
-      iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("allowfullscreen", "allowfullscreen");
-      iframe.title = "Sort the long and short vowels";
-
-      wrap.appendChild(iframe);
-      contentEl.appendChild(h);
-      contentEl.appendChild(hint);
-      contentEl.appendChild(wrap);
-
-      if (!document.getElementById("h5p-resizer")) {
-        const s = document.createElement("script");
-        s.id = "h5p-resizer";
-        s.src = "https://openbooks.lib.msu.edu/app/plugins/h5p/h5p-php-library/js/h5p-resizer.js";
-        s.charset = "UTF-8";
-        document.body.appendChild(s);
-      }
-    }
-
-    // ---- Tracing + Creator mode for strokes ----
-    let traceCanvas, traceCtx;
-    let isDrawing = false;
-    let lastX = 0, lastY = 0;
-    let currentTraceIndex = 0;
-    const TRACE_LIST = UYIR; // can later expand to [...UYIR, ...MEI]
-    let teacherMode = false;
-    let recording = false;
-    let recordedStrokes = [];
-    let demoRunning = false;
-    let demoSpeed = 0.015;
-	let penSize = parseInt(localStorage.getItem("penSize") || "6", 10);
-
-    function renderTrace() {
-      contentEl.innerHTML = "";
-
-      const h = document.createElement("h2");
-      h.className = "section-title";
-      h.textContent = "Trace big letters";
-
-      const hint = document.createElement("div");
-      hint.className = "hint";
-      if (kidName) {
-        hint.textContent = `${kidName}, first watch the pink demo, then trace the letter.`;
-      } else {
-        hint.textContent = "First watch the pink demo, then trace the letter.";
-      }
-      if (creatorMode) {
-        hint.textContent += " (Creator mode: you can record or update strokes.)";
-      }
-
-      const wrapper = document.createElement("div");
-      wrapper.className = "trace-wrapper";
-
-      const topRow = document.createElement("div");
-      topRow.className = "trace-top";
-
-      const letterLabel = document.createElement("div");
-      letterLabel.id = "trace-letter-label";
-
-      const modeToggle = document.createElement("label");
-      modeToggle.className = "mode-toggle";
-      const modeCheckbox = document.createElement("input");
-      modeCheckbox.type = "checkbox";
-      const modeText = document.createElement("span");
-      modeText.textContent = "Teacher mode (record strokes)";
-      modeToggle.appendChild(modeCheckbox);
-      modeToggle.appendChild(modeText);
-
-      topRow.appendChild(letterLabel);
-      topRow.appendChild(modeToggle);
-
-      const controls = document.createElement("div");
-      controls.className = "controls";
-
-      const prevBtn = document.createElement("button");
-      prevBtn.className = "btn btn-ghost";
-      prevBtn.textContent = "← Previous";
-      prevBtn.addEventListener("click", () => {
-        currentTraceIndex = (currentTraceIndex - 1 + TRACE_LIST.length) % TRACE_LIST.length;
-        setupCanvasForCurrent(false);
-      });
-
-      const nextBtn = document.createElement("button");
-      nextBtn.className = "btn btn-ghost";
-      nextBtn.textContent = "Next →";
-      nextBtn.addEventListener("click", () => {
-        currentTraceIndex = (currentTraceIndex + 1) % TRACE_LIST.length;
-        setupCanvasForCurrent(false);
-      });
-
-      const demoBtn = document.createElement("button");
-      demoBtn.className = "btn btn-primary";
-      demoBtn.id = "demo-btn";
-      demoBtn.textContent = "▶ Show how to write";
-      demoBtn.addEventListener("click", () => {
-        runDemoForCurrent();
-      });
-
-      const clearBtn = document.createElement("button");
-	  clearBtn.className = "btn";
-	  clearBtn.textContent = "Clear tracing";
-	  clearBtn.addEventListener("click", () => {
-	  clearCanvas(true);
-		// If we are in creator/teacher recording mode, also reset the in-memory strokes
-	    if (creatorMode && teacherMode && recording) {
-		recordedStrokes = [];
-			}
-		});
-
-	  
-	  // Pen size control
-      const penSizeLabel = document.createElement("span");
-      penSizeLabel.style.fontSize = "0.8rem";
-      penSizeLabel.textContent = "Pen size:";
-
-      const penSizeInput = document.createElement("input");
-      penSizeInput.type = "range";
-      penSizeInput.min = "3";
-      penSizeInput.max = "18";
-      penSizeInput.step = "1";
-      penSizeInput.value = String(penSize);
-      penSizeInput.style.verticalAlign = "middle";
-
-      penSizeInput.addEventListener("input", () => {
-        penSize = parseInt(penSizeInput.value, 10) || 6;
-        localStorage.setItem("penSize", String(penSize));
-      });
-
-      const penSizeWrapper = document.createElement("div");
-      penSizeWrapper.style.display = "inline-flex";
-      penSizeWrapper.style.alignItems = "center";
-      penSizeWrapper.style.gap = "0.25rem";
-      penSizeWrapper.appendChild(penSizeLabel);
-      penSizeWrapper.appendChild(penSizeInput);
-
-      controls.appendChild(penSizeWrapper);
-
-
-      const recordBtn = document.createElement("button");
-      recordBtn.className = "btn";
-      recordBtn.id = "record-btn";
-      recordBtn.textContent = "⏺ Start recording";
-      recordBtn.addEventListener("click", () => {
-        if (!creatorMode) return;
-        if (!teacherMode) return;
-        if (!recording) {
-          demoRunning = false;
-          recording = true;
-          recordedStrokes = [];
-          clearCanvas(true);
-          recordBtn.textContent = "⏹ Stop & save";
-        } else {
-          recording = false;
-          const letterId = getCurrentLetter().id;
-          const normalized = recordedStrokes.map(s => smoothStroke(s));
-          STROKE_DATA[letterId] = { strokes: normalized };
-          saveStrokeData();
-          updateExportBox();
-          updateTeacherUI();
-          recordBtn.textContent = "⏺ Start recording";
-        }
-      });
-
-      controls.appendChild(prevBtn);
-      controls.appendChild(nextBtn);
-      controls.appendChild(demoBtn);
-      controls.appendChild(clearBtn);
-      controls.appendChild(recordBtn);
-
-      const canvasWrap = document.createElement("div");
-      canvasWrap.className = "trace-canvas-wrap";
-      const canvas = document.createElement("canvas");
-      canvas.id = "traceCanvas";
-      canvasWrap.appendChild(canvas);
-
-      const infoRow = document.createElement("div");
-      infoRow.className = "trace-info";
-      const infoLeft = document.createElement("div");
-      infoLeft.textContent = "Tip: first watch the pink demo, then copy it with your finger.";
-      const infoRight = document.createElement("div");
-      infoRight.id = "stroke-status";
-      infoRight.textContent = "";
-      infoRow.appendChild(infoLeft);
-      infoRow.appendChild(infoRight);
-
-      const exportBox = document.createElement("div");
-      exportBox.className = "export-box";
-      const exportLabel = document.createElement("div");
-      exportLabel.textContent = "Creator: JSON for all strokes (copy into strokes.js when ready):";
-      const exportTextarea = document.createElement("textarea");
-      exportTextarea.id = "stroke-json";
-      exportTextarea.readOnly = true;
-      exportBox.appendChild(exportLabel);
-      exportBox.appendChild(exportTextarea);
-
-      wrapper.appendChild(topRow);
-      wrapper.appendChild(controls);
-      wrapper.appendChild(canvasWrap);
-      wrapper.appendChild(infoRow);
-      wrapper.appendChild(exportBox);
-
-      contentEl.appendChild(h);
-      contentEl.appendChild(hint);
-      contentEl.appendChild(wrapper);
-
-      traceCanvas = canvas;
-      traceCtx = traceCanvas.getContext("2d");
-      resizeCanvas();
-      attachDrawEvents();
-      setupCanvasForCurrent(true);
-      updateExportBox();
-      updateTeacherUI();
-
-      // Creator mode visibility
-      if (!creatorMode) {
-        modeToggle.style.display = "none";
-        recordBtn.style.display = "none";
-        exportBox.style.display = "none";
-        teacherMode = false;
-      } else {
-        modeToggle.style.display = "inline-flex";
-        recordBtn.style.display = "inline-flex";
-        exportBox.style.display = "block";
-        modeCheckbox.checked = teacherMode;
-        modeCheckbox.addEventListener("change", () => {
-          teacherMode = modeCheckbox.checked;
-          demoRunning = false;
-          recording = false;
-          recordedStrokes = [];
-          updateTeacherUI();
+      function renderGameOptions(grid) {
+        grid.innerHTML = "";
+        options.forEach(letter => {
+          const btn = document.createElement("button");
+          btn.className = "card";
+          btn.addEventListener("click", () => handleGuess(letter));
+          const main = document.createElement("div");
+          main.className = "card-main";
+          main.textContent = letter.tamil;
+          const sub = document.createElement("div");
+          sub.className = "card-sub";
+          sub.textContent = letter.translit;
+          btn.appendChild(main);
+          btn.appendChild(sub);
+          grid.appendChild(btn);
         });
       }
-    }
 
-    function getCurrentLetter() {
-      return TRACE_LIST[currentTraceIndex];
-    }
-
-    function updateTeacherUI() {
-      const status = document.getElementById("stroke-status");
-      if (!status) return;
-      if (!creatorMode) {
-        status.textContent = "";
-        return;
-      }
-      const letter = getCurrentLetter();
-      const data = STROKE_DATA[letter.id];
-      if (!data || !data.strokes || data.strokes.length === 0) {
-        status.textContent = "No recorded stroke data yet for this letter.";
-      } else {
-        status.textContent = "Recorded strokes: " + data.strokes.length;
-      }
-    }
-
-    function updateLetterLabel() {
-      const label = document.getElementById("trace-letter-label");
-      if (!label) return;
-      const letter = getCurrentLetter();
-      label.textContent = "Letter: " + letter.tamil + " (" + letter.translit + ")";
-    }
-
-    function updateExportBox() {
-      const textarea = document.getElementById("stroke-json");
-      if (!textarea) return;
-      textarea.value = JSON.stringify(STROKE_DATA, null, 2);
-    }
-
-    function resizeCanvas() {
-      if (!traceCanvas) return;
-      const rect = traceCanvas.getBoundingClientRect();
-      traceCanvas.width = rect.width;
-      traceCanvas.height = rect.height;
-    }
-
-    window.addEventListener("resize", () => {
-      if (!traceCanvas) return;
-      resizeCanvas();
-      clearCanvas(true);
-    });
-
-    function clearCanvas(keepSample) {
-      if (!traceCtx || !traceCanvas) return;
-      traceCtx.clearRect(0, 0, traceCanvas.width, traceCanvas.height);
-      traceCtx.strokeStyle = "#dde0ff";
-      traceCtx.lineWidth = 1;
-      const h = traceCanvas.height;
-      const w = traceCanvas.width;
-      const ys = [0.3*h, 0.6*h, 0.9*h];
-      ys.forEach(y => {
-        traceCtx.beginPath();
-        traceCtx.moveTo(0, y);
-        traceCtx.lineTo(w, y);
-        traceCtx.stroke();
-      });
-      if (keepSample) {
-        drawSampleLetter(0.18);
-      }
-    }
-
-    function drawSampleLetter(alpha) {
-      if (!traceCtx || !traceCanvas) return;
-      const letter = getCurrentLetter();
-      traceCtx.save();
-      traceCtx.globalAlpha = alpha;
-      const h = traceCanvas.height;
-      const w = traceCanvas.width;
-      const fontSize = Math.min(w, h) * 0.7;
-      traceCtx.font = fontSize + "px 'Noto Sans Tamil', 'Latha', 'Arial Unicode MS', serif";
-      traceCtx.textAlign = "center";
-      traceCtx.textBaseline = "middle";
-      traceCtx.fillStyle = "#5555aa";
-      traceCtx.fillText(letter.tamil, w/2, h*0.55);
-      traceCtx.restore();
-    }
-
-    function setupCanvasForCurrent(runDemoFirst) {
-      updateLetterLabel();
-      clearCanvas(true);
-      updateTeacherUI();
-      if (runDemoFirst) {
-        runDemoForCurrent();
-      }
-    }
-
-    function runDemoForCurrent() {
-      const letter = getCurrentLetter();
-      const data = STROKE_DATA[letter.id];
-      if (!data || !data.strokes || data.strokes.length === 0) {
-        clearCanvas(true);
-        return;
-      }
-      animateLetterWithStrokes(letter.id);
-    }
-
-    function animateLetterWithStrokes(letterId) {
-      const data = STROKE_DATA[letterId];
-      if (!data || !traceCtx || !traceCanvas) return;
-      const w = traceCanvas.width;
-      const h = traceCanvas.height;
-
-      let strokeIndex = 0;
-      let t = 0;
-      demoRunning = true;
-
-      function drawFrame() {
-        if (!demoRunning) return;
-        clearCanvas(true);
-
-        traceCtx.save();
-        traceCtx.strokeStyle = "#e35b5b";
-        traceCtx.lineWidth = penSize;
-        traceCtx.lineCap = "round";
-        traceCtx.lineJoin = "round";
-
-        // draw completed strokes
-        for (let i = 0; i < strokeIndex;i++) { const stroke=data.strokes[i]; if (!stroke || stroke.length
-						< 2) continue; traceCtx.beginPath(); stroke.forEach((pt, idx)=> {
-            const x = pt.x * w;
-            const y = pt.y * h;
-            if (idx === 0) traceCtx.moveTo(x, y);
-            else traceCtx.lineTo(x, y);
-          });
-          traceCtx.stroke();
-        }
-
-        // draw current in-progress stroke
-        if (strokeIndex < data.strokes.length){ const stroke=data.strokes[strokeIndex]; if (stroke && stroke.length>= 2) {
-            const steps = stroke.length - 1;
-            const total = Math.max(steps, 1);
-            const maxSegment = total * t;
-            const fullSegments = Math.floor(maxSegment);
-            const partial = maxSegment - fullSegments;
-
-            traceCtx.beginPath();
-            for (let i = 0; i <= fullSegments && i
-								< stroke.length; i++) { const x=stroke[i].x * w; const y=stroke[i].y * h; if (i===0) traceCtx.moveTo(x, y); else traceCtx.lineTo(x, y); } if (fullSegments
-								< stroke.length - 1) { const p1=stroke[fullSegments]; const p2=stroke[fullSegments + 1]; const x=(p1.x + (p2.x - p1.x) * partial) * w; const y=(p1.y + (p2.y - p1.y) * partial) * h; traceCtx.lineTo(x, y); } traceCtx.stroke(); } } traceCtx.restore(); t +=demoSpeed; if (t>= 1) {
-          t = 0;
-          strokeIndex++;
-          if (strokeIndex >= data.strokes.length) {
-            demoRunning = false;
-            return;
+      function newRound() {
+        if (gameOver) {
+          const feedbackEl = document.querySelector(".feedback");
+          if (feedbackEl) {
+            const namePart = kidName ? `, ${kidName}` : "";
+            feedbackEl.textContent =
+              `🎉 You finished ${ROUNDS_PER_GAME} questions${namePart}! Tap “New game” to play again.`;
+            feedbackEl.className = "feedback ok";
           }
+          return;
         }
+
+        if (ALL.length < 4) return;
+
+        const grid = document.querySelector(".grid.game-grid");
+        const feedbackEl = document.querySelector(".feedback");
+
+        const shuffled = [...ALL].sort(() => Math.random() - 0.5);
+        options = shuffled.slice(0, 4);
+        gameTarget = options[Math.floor(Math.random() * options.length)];
+
+        if (feedbackEl) {
+          feedbackEl.textContent = `Question ${gameRound + 1} of ${ROUNDS_PER_GAME}`;
+          feedbackEl.className = "feedback";
+        }
+
+        if (grid) {
+          renderGameOptions(grid);
+        }
+
+        if (gameTarget) {
+          playSound(gameTarget.audioId);
+        }
+      }
+
+      function handleGuess(letter) {
+        const feedbackEl = document.querySelector(".feedback");
+        if (!gameTarget || !feedbackEl || gameOver) return;
+
+        if (letter.id === gameTarget.id) {
+          // correct
+          gameRound += 1;
+          gameCorrect += 1;
+          addStar();
+
+          const namePart = kidName ? `, ${kidName}` : "";
+
+          if (gameRound >= ROUNDS_PER_GAME) {
+            gameOver = true;
+            feedbackEl.textContent =
+              `🎉 Superb${namePart}! You finished ${ROUNDS_PER_GAME} questions and got ${gameCorrect} right.`;
+            feedbackEl.className = "feedback ok";
+            gameTarget = null;
+          } else {
+            feedbackEl.textContent =
+              `✅ சரி${namePart}! That was question ${gameRound} of ${ROUNDS_PER_GAME}. Tap “Next round” to continue.`;
+            feedbackEl.className = "feedback ok";
+            // freeze this round; Next round must be tapped
+            gameTarget = null;
+          }
+        } else {
+          const namePart = kidName ? `, ${kidName}` : "";
+          feedbackEl.textContent = `❌ மீண்டும் முயற்சி செய்${namePart}! (Try again!)`;
+          feedbackEl.className = "feedback err";
+        }
+      }
+
+      // ---- Activities: H5P vowel sorting embed ----
+      function renderActivities() {
+        contentEl.innerHTML = "";
+        const h = document.createElement("h2");
+        h.className = "section-title";
+        h.textContent = "Activities: Sort Long & Short Vowels";
+
+        const hint = document.createElement("div");
+        hint.className = "hint";
+        hint.textContent = "This activity is loaded from MSU Basic Tamil (internet required).";
+
+        const wrap = document.createElement("div");
+        wrap.className = "activities-wrapper";
+
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://openbooks.lib.msu.edu/basictamil/wp-admin/admin-ajax.php?action=h5p_embed&id=3";
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("allowfullscreen", "allowfullscreen");
+        iframe.title = "Sort the long and short vowels";
+
+        wrap.appendChild(iframe);
+        contentEl.appendChild(h);
+        contentEl.appendChild(hint);
+        contentEl.appendChild(wrap);
+
+        if (!document.getElementById("h5p-resizer")) {
+          const s = document.createElement("script");
+          s.id = "h5p-resizer";
+          s.src = "https://openbooks.lib.msu.edu/app/plugins/h5p/h5p-php-library/js/h5p-resizer.js";
+          s.charset = "UTF-8";
+          document.body.appendChild(s);
+        }
+      }
+
+      // ---- Tracing + Creator mode for strokes ----
+      let traceCanvas, traceCtx;
+      let isDrawing = false;
+      let lastX = 0, lastY = 0;
+      let currentTraceIndex = 0;
+      const TRACE_LIST = UYIR; // later can expand to [...UYIR, ...MEI]
+      let teacherMode = false;
+      let recording = false;
+      let recordedStrokes = [];
+      let demoRunning = false;
+      let demoSpeed = 0.015;
+      let penSize = parseInt(localStorage.getItem("penSize") || "6", 10);
+
+      function renderTrace() {
+        contentEl.innerHTML = "";
+
+        const h = document.createElement("h2");
+        h.className = "section-title";
+        h.textContent = "Trace big letters";
+
+        const hint = document.createElement("div");
+        hint.className = "hint";
+        if (kidName) {
+          hint.textContent = `${kidName}, first watch the pink demo, then trace the letter.`;
+        } else {
+          hint.textContent = "First watch the pink demo, then trace the letter.";
+        }
+        if (creatorMode) {
+          hint.textContent += " (Creator mode: you can record or update strokes.)";
+        }
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "trace-wrapper";
+
+        const topRow = document.createElement("div");
+        topRow.className = "trace-top";
+
+        const letterLabel = document.createElement("div");
+        letterLabel.id = "trace-letter-label";
+
+        const modeToggle = document.createElement("label");
+        modeToggle.className = "mode-toggle";
+        const modeCheckbox = document.createElement("input");
+        modeCheckbox.type = "checkbox";
+        const modeText = document.createElement("span");
+        modeText.textContent = "Teacher mode (record strokes)";
+        modeToggle.appendChild(modeCheckbox);
+        modeToggle.appendChild(modeText);
+
+        topRow.appendChild(letterLabel);
+        topRow.appendChild(modeToggle);
+
+        const controls = document.createElement("div");
+        controls.className = "controls";
+
+        const prevBtn = document.createElement("button");
+        prevBtn.className = "btn btn-ghost";
+        prevBtn.textContent = "← Previous";
+        prevBtn.addEventListener("click", () => {
+          currentTraceIndex = (currentTraceIndex - 1 + TRACE_LIST.length) % TRACE_LIST.length;
+          setupCanvasForCurrent(false);
+        });
+
+        const nextBtn = document.createElement("button");
+        nextBtn.className = "btn btn-ghost";
+        nextBtn.textContent = "Next →";
+        nextBtn.addEventListener("click", () => {
+          currentTraceIndex = (currentTraceIndex + 1) % TRACE_LIST.length;
+          setupCanvasForCurrent(false);
+        });
+
+        const demoBtn = document.createElement("button");
+        demoBtn.className = "btn btn-primary";
+        demoBtn.id = "demo-btn";
+        demoBtn.textContent = "▶ Show how to write";
+        demoBtn.addEventListener("click", () => {
+          runDemoForCurrent();
+        });
+
+        const clearBtn = document.createElement("button");
+        clearBtn.className = "btn";
+        clearBtn.textContent = "Clear tracing";
+        clearBtn.addEventListener("click", () => {
+          clearCanvas(true);
+          if (creatorMode && teacherMode && recording) {
+            recordedStrokes = [];
+          }
+        });
+
+        // Pen size control
+        const penSizeLabel = document.createElement("span");
+        penSizeLabel.style.fontSize = "0.8rem";
+        penSizeLabel.textContent = "Pen size:";
+
+        const penSizeInput = document.createElement("input");
+        penSizeInput.type = "range";
+        penSizeInput.min = "3";
+        penSizeInput.max = "18";
+        penSizeInput.step = "1";
+        penSizeInput.value = String(penSize);
+        penSizeInput.style.verticalAlign = "middle";
+
+        penSizeInput.addEventListener("input", () => {
+          penSize = parseInt(penSizeInput.value, 10) || 6;
+          localStorage.setItem("penSize", String(penSize));
+        });
+
+        const penSizeWrapper = document.createElement("div");
+        penSizeWrapper.style.display = "inline-flex";
+        penSizeWrapper.style.alignItems = "center";
+        penSizeWrapper.style.gap = "0.25rem";
+        penSizeWrapper.appendChild(penSizeLabel);
+        penSizeWrapper.appendChild(penSizeInput);
+
+        const recordBtn = document.createElement("button");
+        recordBtn.className = "btn";
+        recordBtn.id = "record-btn";
+        recordBtn.textContent = "⏺ Start recording";
+        recordBtn.addEventListener("click", () => {
+          if (!creatorMode) return;
+          if (!teacherMode) return;
+          if (!recording) {
+            demoRunning = false;
+            recording = true;
+            recordedStrokes = [];
+            clearCanvas(true);
+            recordBtn.textContent = "⏹ Stop & save";
+          } else {
+            recording = false;
+            const letterId = getCurrentLetter().id;
+            const normalized = recordedStrokes.map(s => smoothStroke(s));
+            STROKE_DATA[letterId] = { strokes: normalized };
+            saveStrokeData();
+            updateExportBox();
+            updateTeacherUI();
+            recordBtn.textContent = "⏺ Start recording";
+          }
+        });
+
+        controls.appendChild(prevBtn);
+        controls.appendChild(nextBtn);
+        controls.appendChild(demoBtn);
+        controls.appendChild(clearBtn);
+        controls.appendChild(penSizeWrapper);
+        controls.appendChild(recordBtn);
+
+        const canvasWrap = document.createElement("div");
+        canvasWrap.className = "trace-canvas-wrap";
+        const canvas = document.createElement("canvas");
+        canvas.id = "traceCanvas";
+        canvasWrap.appendChild(canvas);
+
+        const infoRow = document.createElement("div");
+        infoRow.className = "trace-info";
+        const infoLeft = document.createElement("div");
+        infoLeft.textContent = "Tip: first watch the pink demo, then copy it with your finger.";
+        const infoRight = document.createElement("div");
+        infoRight.id = "stroke-status";
+        infoRight.textContent = "";
+        infoRow.appendChild(infoLeft);
+        infoRow.appendChild(infoRight);
+
+        const exportBox = document.createElement("div");
+        exportBox.className = "export-box";
+        const exportLabel = document.createElement("div");
+        exportLabel.textContent = "Creator: JSON for all strokes (copy into strokes.js when ready):";
+        const exportTextarea = document.createElement("textarea");
+        exportTextarea.id = "stroke-json";
+        exportTextarea.readOnly = true;
+        exportBox.appendChild(exportLabel);
+        exportBox.appendChild(exportTextarea);
+
+        wrapper.appendChild(topRow);
+        wrapper.appendChild(controls);
+        wrapper.appendChild(canvasWrap);
+        wrapper.appendChild(infoRow);
+        wrapper.appendChild(exportBox);
+
+        contentEl.appendChild(h);
+        contentEl.appendChild(hint);
+        contentEl.appendChild(wrapper);
+
+        traceCanvas = canvas;
+        traceCtx = traceCanvas.getContext("2d");
+        resizeCanvas();
+        attachDrawEvents();
+        setupCanvasForCurrent(true);
+        updateExportBox();
+        updateTeacherUI();
+
+        // Creator mode visibility
+        if (!creatorMode) {
+          modeToggle.style.display = "none";
+          recordBtn.style.display = "none";
+          exportBox.style.display = "none";
+          teacherMode = false;
+        } else {
+          modeToggle.style.display = "inline-flex";
+          recordBtn.style.display = "inline-flex";
+          exportBox.style.display = "block";
+          modeCheckbox.checked = teacherMode;
+          modeCheckbox.addEventListener("change", () => {
+            teacherMode = modeCheckbox.checked;
+            demoRunning = false;
+            recording = false;
+            recordedStrokes = [];
+            updateTeacherUI();
+          });
+        }
+      }
+
+      function getCurrentLetter() {
+        return TRACE_LIST[currentTraceIndex];
+      }
+
+      function updateTeacherUI() {
+        const status = document.getElementById("stroke-status");
+        if (!status) return;
+        if (!creatorMode) {
+          status.textContent = "";
+          return;
+        }
+        const letter = getCurrentLetter();
+        const data = STROKE_DATA[letter.id];
+        if (!data || !data.strokes || data.strokes.length === 0) {
+          status.textContent = "No recorded stroke data yet for this letter.";
+        } else {
+          status.textContent = "Recorded strokes: " + data.strokes.length;
+        }
+      }
+
+      function updateLetterLabel() {
+        const label = document.getElementById("trace-letter-label");
+        if (!label) return;
+        const letter = getCurrentLetter();
+        label.textContent = "Letter: " + letter.tamil + " (" + letter.translit + ")";
+      }
+
+      function updateExportBox() {
+        const textarea = document.getElementById("stroke-json");
+        if (!textarea) return;
+        textarea.value = JSON.stringify(STROKE_DATA, null, 2);
+      }
+
+      function resizeCanvas() {
+        if (!traceCanvas) return;
+        const rect = traceCanvas.getBoundingClientRect();
+        traceCanvas.width = rect.width;
+        traceCanvas.height = rect.height;
+      }
+
+      window.addEventListener("resize", () => {
+        if (!traceCanvas) return;
+        resizeCanvas();
+        clearCanvas(true);
+      });
+
+      function clearCanvas(keepSample) {
+        if (!traceCtx || !traceCanvas) return;
+        traceCtx.clearRect(0, 0, traceCanvas.width, traceCanvas.height);
+        traceCtx.strokeStyle = "#dde0ff";
+        traceCtx.lineWidth = 1;
+        const h = traceCanvas.height;
+        const w = traceCanvas.width;
+        const ys = [0.3 * h, 0.6 * h, 0.9 * h];
+        ys.forEach(y => {
+          traceCtx.beginPath();
+          traceCtx.moveTo(0, y);
+          traceCtx.lineTo(w, y);
+          traceCtx.stroke();
+        });
+        if (keepSample) {
+          drawSampleLetter(0.18);
+        }
+      }
+
+      function drawSampleLetter(alpha) {
+        if (!traceCtx || !traceCanvas) return;
+        const letter = getCurrentLetter();
+        traceCtx.save();
+        traceCtx.globalAlpha = alpha;
+        const h = traceCanvas.height;
+        const w = traceCanvas.width;
+        const fontSize = Math.min(w, h) * 0.7;
+        traceCtx.font = fontSize + "px 'Noto Sans Tamil', 'Latha', 'Arial Unicode MS', serif";
+        traceCtx.textAlign = "center";
+        traceCtx.textBaseline = "middle";
+        traceCtx.fillStyle = "#5555aa";
+        traceCtx.fillText(letter.tamil, w / 2, h * 0.55);
+        traceCtx.restore();
+      }
+
+      function setupCanvasForCurrent(runDemoFirst) {
+        updateLetterLabel();
+        clearCanvas(true);
+        updateTeacherUI();
+        if (runDemoFirst) {
+          runDemoForCurrent();
+        }
+      }
+
+      function runDemoForCurrent() {
+        const letter = getCurrentLetter();
+        const data = STROKE_DATA[letter.id];
+        if (!data || !data.strokes || data.strokes.length === 0) {
+          clearCanvas(true);
+          return;
+        }
+        animateLetterWithStrokes(letter.id);
+      }
+
+      function animateLetterWithStrokes(letterId) {
+        const data = STROKE_DATA[letterId];
+        if (!data || !traceCtx || !traceCanvas) return;
+        const w = traceCanvas.width;
+        const h = traceCanvas.height;
+
+        let strokeIndex = 0;
+        let t = 0;
+        demoRunning = true;
+
+        function drawFrame() {
+          if (!demoRunning) return;
+          clearCanvas(true);
+
+          traceCtx.save();
+          traceCtx.strokeStyle = "#e35b5b";
+          traceCtx.lineWidth = penSize;
+          traceCtx.lineCap = "round";
+          traceCtx.lineJoin = "round";
+
+          // draw completed strokes
+          for (let i = 0; i < strokeIndex; i++) {
+            const stroke = data.strokes[i];
+            if (!stroke || stroke.length < 2) continue;
+            traceCtx.beginPath();
+            stroke.forEach((pt, idx) => {
+              const x = pt.x * w;
+              const y = pt.y * h;
+              if (idx === 0) traceCtx.moveTo(x, y);
+              else traceCtx.lineTo(x, y);
+            });
+            traceCtx.stroke();
+          }
+
+          // draw current in-progress stroke
+          if (strokeIndex < data.strokes.length) {
+            const stroke = data.strokes[strokeIndex];
+            if (stroke && stroke.length >= 2) {
+              const steps = stroke.length - 1;
+              const total = Math.max(steps, 1);
+              const maxSegment = total * t;
+              const fullSegments = Math.floor(maxSegment);
+              const partial = maxSegment - fullSegments;
+
+                traceCtx.beginPath();
+                for (let i = 0; i <= fullSegments && i < stroke.length; i++) {
+                  const x = stroke[i].x * w;
+                  const y = stroke[i].y * h;
+                  if (i === 0) traceCtx.moveTo(x, y);
+                  else traceCtx.lineTo(x, y);
+                }
+                if (fullSegments < stroke.length - 1) {
+                  const p1 = stroke[fullSegments];
+                  const p2 = stroke[fullSegments + 1];
+                  const x = (p1.x + (p2.x - p1.x) * partial) * w;
+                  const y = (p1.y + (p2.y - p1.y) * partial) * h;
+                  traceCtx.lineTo(x, y);
+                }
+                traceCtx.stroke();
+            }
+          }
+
+          traceCtx.restore();
+
+          t += demoSpeed;
+          if (t >= 1) {
+            t = 0;
+            strokeIndex++;
+            if (strokeIndex >= data.strokes.length) {
+              demoRunning = false;
+              return;
+            }
+          }
+          requestAnimationFrame(drawFrame);
+        }
+
         requestAnimationFrame(drawFrame);
       }
 
-      requestAnimationFrame(drawFrame);
-    }
+      function attachDrawEvents() {
+        if (!traceCanvas) return;
+        const getPos = (e) => {
+          const rect = traceCanvas.getBoundingClientRect();
+          if (e.touches && e.touches.length > 0) {
+            const t = e.touches[0];
+            return { x: t.clientX - rect.left, y: t.clientY - rect.top };
+          }
+          return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+        };
+        const start = (e) => {
+          e.preventDefault();
+          if (demoRunning) return;
+          isDrawing = true;
+          const pos = getPos(e);
+          lastX = pos.x; lastY = pos.y;
+          if (creatorMode && teacherMode && recording) {
+            const stroke = [];
+            stroke.push(normalizePoint(pos));
+            recordedStrokes.push(stroke);
+          }
+        };
+        const move = (e) => {
+          if (!isDrawing || !traceCtx) return;
+          e.preventDefault();
+          const pos = getPos(e);
+          traceCtx.strokeStyle = (creatorMode && teacherMode && recording) ? "#ff7b7b" : "#4a90e2";
+          traceCtx.lineWidth = penSize;
+          traceCtx.lineCap = "round";
+          traceCtx.lineJoin = "round";
+          traceCtx.beginPath();
+          traceCtx.moveTo(lastX, lastY);
+          traceCtx.lineTo(pos.x, pos.y);
+          traceCtx.stroke();
+          lastX = pos.x; lastY = pos.y;
+          if (creatorMode && teacherMode && recording && recordedStrokes.length > 0) {
+            const stroke = recordedStrokes[recordedStrokes.length - 1];
+            stroke.push(normalizePoint(pos));
+          }
+        };
+        const end = (e) => {
+          if (!isDrawing) return;
+          e.preventDefault();
+          isDrawing = false;
+          updateTeacherUI();
+        };
+        traceCanvas.onmousedown = start;
+        traceCanvas.onmousemove = move;
+        traceCanvas.onmouseup = end;
+        traceCanvas.onmouseleave = end;
+        traceCanvas.ontouchstart = start;
+        traceCanvas.ontouchmove = move;
+        traceCanvas.ontouchend = end;
+        traceCanvas.ontouchcancel = end;
+      }
 
-    function attachDrawEvents() {
-      if (!traceCanvas) return;
-      const getPos = (e) => {
+      function normalizePoint(pos) {
         const rect = traceCanvas.getBoundingClientRect();
-        if (e.touches && e.touches.length > 0) {
-          const t = e.touches[0];
-          return { x: t.clientX - rect.left, y: t.clientY - rect.top };
-        }
-        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      };
-      const start = (e) => {
-        e.preventDefault();
-        if (demoRunning) return;
-        isDrawing = true;
-        const pos = getPos(e);
-        lastX = pos.x; lastY = pos.y;
-        if (creatorMode && teacherMode && recording) {
-          const stroke = [];
-          stroke.push(normalizePoint(pos));
-          recordedStrokes.push(stroke);
-        }
-      };
-      const move = (e) => {
-        if (!isDrawing || !traceCtx) return;
-        e.preventDefault();
-        const pos = getPos(e);
-        traceCtx.strokeStyle = (creatorMode && teacherMode && recording) ? "#ff7b7b" : "#4a90e2";
-        traceCtx.lineWidth = penSize;
-        traceCtx.lineCap = "round";
-        traceCtx.lineJoin = "round";
-        traceCtx.beginPath();
-        traceCtx.moveTo(lastX, lastY);
-        traceCtx.lineTo(pos.x, pos.y);
-        traceCtx.stroke();
-        lastX = pos.x; lastY = pos.y;
-        if (creatorMode && teacherMode && recording && recordedStrokes.length > 0) {
-          const stroke = recordedStrokes[recordedStrokes.length - 1];
-          stroke.push(normalizePoint(pos));
-        }
-      };
-      const end = (e) => {
-        if (!isDrawing) return;
-        e.preventDefault();
-        isDrawing = false;
-        updateTeacherUI();
-      };
-      traceCanvas.onmousedown = start;
-      traceCanvas.onmousemove = move;
-      traceCanvas.onmouseup = end;
-      traceCanvas.onmouseleave = end;
-      traceCanvas.ontouchstart = start;
-      traceCanvas.ontouchmove = move;
-      traceCanvas.ontouchend = end;
-      traceCanvas.ontouchcancel = end;
-    }
+        return {
+          x: Math.max(0, Math.min(1, pos.x / rect.width)),
+          y: Math.max(0, Math.min(1, pos.y / rect.height))
+        };
+      }
 
-    function normalizePoint(pos) {
-      const rect = traceCanvas.getBoundingClientRect();
-      return {
-        x: Math.max(0, Math.min(1, pos.x / rect.width)),
-        y: Math.max(0, Math.min(1, pos.y / rect.height))
-      };
-    }
+      // --- smoothing for creator-recorded strokes ---
+      function smoothStroke(stroke) {
+        if (!stroke || stroke.length <= 3) return stroke;
 
-    // --- smoothing for creator-recorded strokes ---
-    function smoothStroke(stroke) {
-      if (!stroke || stroke.length <= 3) return stroke; const smoothed=[]; smoothed.push(stroke[0]); for (let i=1; i
-									< stroke.length - 1; i++) { const pPrev=stroke[i - 1]; const p=stroke[i]; const pNext=stroke[i + 1]; smoothed.push({ x: (pPrev.x + p.x + pNext.x) 3, y: (pPrev.y + p.y + pNext.y) 3 }); } smoothed.push(stroke[stroke.length - 1]); const MAX_POINTS=180; if (smoothed.length
-									<= MAX_POINTS) return smoothed; const step=Math.ceil(smoothed.length MAX_POINTS); const decimated=[]; for (let i=0; i
-									< smoothed.length; i +=step) { decimated.push(smoothed[i]); } if (decimated[decimated.length - 1] !==smoothed[smoothed.length - 1]) { decimated.push(smoothed[smoothed.length - 1]); } return decimated; } ---- initial screen ---- initKidProfile(); updateKidUI(); renderLetters(UYIR,"Uyir Ezhuthukkal" );
-								</script>
-							</body>
-						</html>
+        const smoothed = [];
+        smoothed.push(stroke[0]);
+
+        for (let i = 1; i < stroke.length - 1; i++) {
+          const pPrev = stroke[i - 1];
+          const p = stroke[i];
+          const pNext = stroke[i + 1];
+          smoothed.push({
+            x: (pPrev.x + p.x + pNext.x) / 3,
+            y: (pPrev.y + p.y + pNext.y) / 3
+          });
+        }
+
+        smoothed.push(stroke[stroke.length - 1]);
+
+        const MAX_POINTS = 180;
+        if (smoothed.length <= MAX_POINTS) return smoothed;
+
+        const step = Math.ceil(smoothed.length / MAX_POINTS);
+        const decimated = [];
+        for (let i = 0; i < smoothed.length; i += step) {
+          decimated.push(smoothed[i]);
+        }
+        if (decimated[decimated.length - 1] !== smoothed[smoothed.length - 1]) {
+          decimated.push(smoothed[smoothed.length - 1]);
+        }
+        return decimated;
+      }
+
+      // ---- initial screen ----
+      initKidProfile();
+      updateKidUI();
+      renderLetters(UYIR, "Uyir Ezhuthukkal");
+    </script>
+  </body>
+</html>

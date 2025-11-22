@@ -1,4 +1,3 @@
-// Minimal clean stroke data – no comments, no funny characters.
 window.TAMIL_STROKE_DATA = {
   "a":  { "strokes": [] },
   "aa": { "strokes": [] },
@@ -12,7 +11,6 @@ window.TAMIL_STROKE_DATA = {
   "o":  { "strokes": [] },
   "oo": { "strokes": [] },
   "au": { "strokes": [] },
-
   "k":  { "strokes": [] },
   "ng": { "strokes": [] },
   "ch": { "strokes": [] },
@@ -32,4 +30,3 @@ window.TAMIL_STROKE_DATA = {
   "r2": { "strokes": [] },
   "n3": { "strokes": [] }
 };
-
