@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-      <title>Tamil Kids – Letters, Tracing, Activities & Games</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
+	<head>
+		<meta charset="UTF-8">
+			<title>Tamil Kids – Letters, Tracing, Activities & Games</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<style>
     :root {
       --bg: #f6f6fb;
       --accent: #7267f0;
@@ -232,46 +232,46 @@
       canvas#traceCanvas { height: 230px; }
     }
   </style>
-      </head>
-      <body>
-        <div class="app">
-          <header>
-            <div class="pill">
-              <span>தமிழ்</span> • <span>for kids</span>
-            </div>
-            <h1 class="title" id="appTitle">Tamil Kids Letters</h1>
-            <p class="subtitle" id="subtitle">Tap, trace, sort vowels, and play games.</p>
-            <div class="top-header-row">
-              <div class="greeting" id="greeting"></div>
-              <div class="stars-pill" id="stars-pill">⭐ <span id="stars-count">0</span>
-              </div>
-            </div>
-          </header>
-          <nav class="tabs">
-            <button class="tab-btn active" data-tab="uyir">Uyir (Vowels)</button>
-            <button class="tab-btn" data-tab="mei">Mei (Consonants)</button>
-            <button class="tab-btn" data-tab="trace">✏️ Trace letters</button>
-            <button class="tab-btn" data-tab="game">🎮 Game</button>
-            <button class="tab-btn" data-tab="activities">📚 Activities</button>
-          </nav>
-          <main id="content"></main>
-          <footer>
-            <div>Kids: use the tabs to learn and play. Creators: hidden tools let you refine strokes.</div>
-            <div class="small">Add MP3 audio files in <code>audio/</code> to enable sounds.</div>
-          </footer>
-        </div>
-        <!-- Child name modal -->
-        <div id="nameModal" class="modal-backdrop hidden">
-          <div class="modal">
-            <h2>வணக்கம்! 😊</h2>
-            <p>What is your name?</p>
-            <input type="text" id="kidNameInput" placeholder="Type your name..."/>
-            <button id="kidNameSaveBtn">Let's start</button>
-          </div>
-        </div>
-        <!-- external stroke data -->
-        <script src="strokes.js"></script>
-        <script>
+			</head>
+			<body>
+				<div class="app">
+					<header>
+						<div class="pill">
+							<span>தமிழ்</span> • <span>for kids</span>
+						</div>
+						<h1 class="title" id="appTitle">Tamil Kids Letters</h1>
+						<p class="subtitle" id="subtitle">Tap, trace, sort vowels, and play games.</p>
+						<div class="top-header-row">
+							<div class="greeting" id="greeting"/>
+							<div class="stars-pill" id="stars-pill">⭐ <span id="stars-count">0</span>
+							</div>
+						</div>
+					</header>
+					<nav class="tabs">
+						<button class="tab-btn active" data-tab="uyir">Uyir (Vowels)</button>
+						<button class="tab-btn" data-tab="mei">Mei (Consonants)</button>
+						<button class="tab-btn" data-tab="trace">✏️ Trace letters</button>
+						<button class="tab-btn" data-tab="game">🎮 Game</button>
+						<button class="tab-btn" data-tab="activities">📚 Activities</button>
+					</nav>
+					<main id="content"/>
+					<footer>
+						<div>Kids: use the tabs to learn and play. Creators: hidden tools let you refine strokes.</div>
+						<div class="small">Add MP3 audio files in <code>audio/</code> to enable sounds.</div>
+					</footer>
+				</div>
+				<!-- Child name modal -->
+				<div id="nameModal" class="modal-backdrop hidden">
+					<div class="modal">
+						<h2>வணக்கம்! 😊</h2>
+						<p>What is your name?</p>
+						<input type="text" id="kidNameInput" placeholder="Type your name..."/>
+						<button id="kidNameSaveBtn">Let's start</button>
+					</div>
+				</div>
+				<!-- external stroke data -->
+				<script src="strokes.js"/>
+				<script>
     // ---- Data ----
     const UYIR = [
       { id: "a",  tamil: "அ", translit: "a",  audioId: "a"  },
@@ -593,12 +593,7 @@
         return;
       }
 
-      if (ALL.length < 4) return;
-
-      const grid = document.querySelector(".grid.game-grid");
-      const feedbackEl = document.querySelector(".feedback");
-
-      const shuffled = [...ALL].sort(() => Math.random() - 0.5);
+      if (ALL.length < 4) return; const grid=document.querySelector(".grid.game-grid" ); const feedbackEl=document.querySelector(".feedback" ); const shuffled=[...ALL].sort(()=> Math.random() - 0.5);
       options = shuffled.slice(0, 4);
       gameTarget = options[Math.floor(Math.random() * options.length)];
 
@@ -762,11 +757,16 @@
       });
 
       const clearBtn = document.createElement("button");
-      clearBtn.className = "btn";
-      clearBtn.textContent = "Clear tracing";
-      clearBtn.addEventListener("click", () => {
-        clearCanvas(true);
-      });
+	  clearBtn.className = "btn";
+	  clearBtn.textContent = "Clear tracing";
+	  clearBtn.addEventListener("click", () => {
+	  clearCanvas(true);
+		// If we are in creator/teacher recording mode, also reset the in-memory strokes
+	    if (creatorMode && teacherMode && recording) {
+		recordedStrokes = [];
+			}
+		});
+
 	  
 	  // Pen size control
       const penSizeLabel = document.createElement("span");
@@ -1013,11 +1013,8 @@
         traceCtx.lineJoin = "round";
 
         // draw completed strokes
-        for (let i = 0; i < strokeIndex; i++) {
-          const stroke = data.strokes[i];
-          if (!stroke || stroke.length < 2) continue;
-          traceCtx.beginPath();
-          stroke.forEach((pt, idx) => {
+        for (let i = 0; i < strokeIndex;i++) { const stroke=data.strokes[i]; if (!stroke || stroke.length
+						< 2) continue; traceCtx.beginPath(); stroke.forEach((pt, idx)=> {
             const x = pt.x * w;
             const y = pt.y * h;
             if (idx === 0) traceCtx.moveTo(x, y);
@@ -1027,9 +1024,7 @@
         }
 
         // draw current in-progress stroke
-        if (strokeIndex < data.strokes.length) {
-          const stroke = data.strokes[strokeIndex];
-          if (stroke && stroke.length >= 2) {
+        if (strokeIndex < data.strokes.length){ const stroke=data.strokes[strokeIndex]; if (stroke && stroke.length>= 2) {
             const steps = stroke.length - 1;
             const total = Math.max(steps, 1);
             const maxSegment = total * t;
@@ -1037,27 +1032,9 @@
             const partial = maxSegment - fullSegments;
 
             traceCtx.beginPath();
-            for (let i = 0; i <= fullSegments && i < stroke.length; i++) {
-              const x = stroke[i].x * w;
-              const y = stroke[i].y * h;
-              if (i === 0) traceCtx.moveTo(x, y);
-              else traceCtx.lineTo(x, y);
-            }
-            if (fullSegments < stroke.length - 1) {
-              const p1 = stroke[fullSegments];
-              const p2 = stroke[fullSegments + 1];
-              const x = (p1.x + (p2.x - p1.x) * partial) * w;
-              const y = (p1.y + (p2.y - p1.y) * partial) * h;
-              traceCtx.lineTo(x, y);
-            }
-            traceCtx.stroke();
-          }
-        }
-
-        traceCtx.restore();
-
-        t += demoSpeed;
-        if (t >= 1) {
+            for (let i = 0; i <= fullSegments && i
+								< stroke.length; i++) { const x=stroke[i].x * w; const y=stroke[i].y * h; if (i===0) traceCtx.moveTo(x, y); else traceCtx.lineTo(x, y); } if (fullSegments
+								< stroke.length - 1) { const p1=stroke[fullSegments]; const p2=stroke[fullSegments + 1]; const x=(p1.x + (p2.x - p1.x) * partial) * w; const y=(p1.y + (p2.y - p1.y) * partial) * h; traceCtx.lineTo(x, y); } traceCtx.stroke(); } } traceCtx.restore(); t +=demoSpeed; if (t>= 1) {
           t = 0;
           strokeIndex++;
           if (strokeIndex >= data.strokes.length) {
@@ -1137,41 +1114,10 @@
 
     // --- smoothing for creator-recorded strokes ---
     function smoothStroke(stroke) {
-      if (!stroke || stroke.length <= 3) return stroke;
-
-      const smoothed = [];
-      smoothed.push(stroke[0]);
-
-      for (let i = 1; i < stroke.length - 1; i++) {
-        const pPrev = stroke[i - 1];
-        const p = stroke[i];
-        const pNext = stroke[i + 1];
-        smoothed.push({
-          x: (pPrev.x + p.x + pNext.x) / 3,
-          y: (pPrev.y + p.y + pNext.y) / 3
-        });
-      }
-
-      smoothed.push(stroke[stroke.length - 1]);
-
-      const MAX_POINTS = 180;
-      if (smoothed.length <= MAX_POINTS) return smoothed;
-
-      const step = Math.ceil(smoothed.length / MAX_POINTS);
-      const decimated = [];
-      for (let i = 0; i < smoothed.length; i += step) {
-        decimated.push(smoothed[i]);
-      }
-      if (decimated[decimated.length - 1] !== smoothed[smoothed.length - 1]) {
-        decimated.push(smoothed[smoothed.length - 1]);
-      }
-      return decimated;
-    }
-
-    // ---- initial screen ----
-    initKidProfile();
-    updateKidUI();
-    renderLetters(UYIR, "Uyir Ezhuthukkal");
-        </script>
-      </body>
-    </html>
+      if (!stroke || stroke.length <= 3) return stroke; const smoothed=[]; smoothed.push(stroke[0]); for (let i=1; i
+									< stroke.length - 1; i++) { const pPrev=stroke[i - 1]; const p=stroke[i]; const pNext=stroke[i + 1]; smoothed.push({ x: (pPrev.x + p.x + pNext.x) 3, y: (pPrev.y + p.y + pNext.y) 3 }); } smoothed.push(stroke[stroke.length - 1]); const MAX_POINTS=180; if (smoothed.length
+									<= MAX_POINTS) return smoothed; const step=Math.ceil(smoothed.length MAX_POINTS); const decimated=[]; for (let i=0; i
+									< smoothed.length; i +=step) { decimated.push(smoothed[i]); } if (decimated[decimated.length - 1] !==smoothed[smoothed.length - 1]) { decimated.push(smoothed[smoothed.length - 1]); } return decimated; } ---- initial screen ---- initKidProfile(); updateKidUI(); renderLetters(UYIR,"Uyir Ezhuthukkal" );
+								</script>
+							</body>
+						</html>
