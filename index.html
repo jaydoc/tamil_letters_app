@@ -142,11 +142,11 @@
         border: 1px solid #dde0ff;
       }
       canvas#traceCanvas {
-  width: 100%;
-  height: 340px;       /* more vertical room on desktop/tablet */
-  touch-action: none;
-  display: block;
-}
+        width: 100%;
+        height: 340px;       /* more vertical room on desktop/tablet */
+        touch-action: none;
+        display: block;
+      }
 
       .trace-info {
         display: flex; justify-content: space-between; align-items: center;
@@ -233,10 +233,11 @@
       .hidden { display: none !important; }
 
       @media (max-width: 480px) {
-  .title { font-size: 1.8rem; }
-  canvas#traceCanvas {
-    height: 280px;     /* phones get more room than before too */
-  }
+        .title { font-size: 1.8rem; }
+        canvas#traceCanvas {
+          height: 280px;     /* phones get more room than before too */
+        }
+      }
     </style>
   </head>
   <body>
@@ -972,22 +973,21 @@
       }
 
       function drawSampleLetter(alpha) {
-  if (!traceCtx || !traceCanvas) return;
-  const letter = getCurrentLetter();
-  traceCtx.save();
-  traceCtx.globalAlpha = alpha;
-  const h = traceCanvas.height;
-  const w = traceCanvas.width;
-  // slightly smaller + a bit higher to keep bottom tails visible
-  const fontSize = Math.min(w, h) * 0.6;
-  traceCtx.font = fontSize + "px 'Noto Sans Tamil', 'Latha', 'Arial Unicode MS', serif";
-  traceCtx.textAlign = "center";
-  traceCtx.textBaseline = "middle";
-  traceCtx.fillStyle = "#5555aa";
-  traceCtx.fillText(letter.tamil, w / 2, h * 0.48);
-  traceCtx.restore();
-}
-
+        if (!traceCtx || !traceCanvas) return;
+        const letter = getCurrentLetter();
+        traceCtx.save();
+        traceCtx.globalAlpha = alpha;
+        const h = traceCanvas.height;
+        const w = traceCanvas.width;
+        // slightly smaller + a bit higher to keep bottom tails visible
+        const fontSize = Math.min(w, h) * 0.6;
+        traceCtx.font = fontSize + "px 'Noto Sans Tamil', 'Latha', 'Arial Unicode MS', serif";
+        traceCtx.textAlign = "center";
+        traceCtx.textBaseline = "middle";
+        traceCtx.fillStyle = "#5555aa";
+        traceCtx.fillText(letter.tamil, w / 2, h * 0.48);
+        traceCtx.restore();
+      }
 
       function setupCanvasForCurrent(runDemoFirst) {
         updateLetterLabel();
@@ -1009,152 +1009,83 @@
       }
 
       function animateLetterWithStrokes(letterId) {
-  const data = STROKE_DATA[letterId];
-  if (!data || !traceCtx || !traceCanvas) return;
-  const w = traceCanvas.width;
-  const h = traceCanvas.height;
+        const data = STROKE_DATA[letterId];
+        if (!data || !traceCtx || !traceCanvas) return;
+        const w = traceCanvas.width;
+        const h = traceCanvas.height;
 
-  let strokeIndex = 0;
-  let t = 0;
-  demoRunning = true;
+        let strokeIndex = 0;
+        let t = 0;
+        demoRunning = true;
 
-  function drawFrame() {
-    if (!demoRunning) return;
-    clearCanvas(true);
+        function drawFrame() {
+          if (!demoRunning) return;
+          clearCanvas(true);
 
-    traceCtx.save();
-    traceCtx.strokeStyle = "#e35b5b";
-    traceCtx.lineWidth = penSize;
-    traceCtx.lineCap = "round";
-    traceCtx.lineJoin = "round";
+          traceCtx.save();
+          traceCtx.strokeStyle = "#e35b5b";
+          traceCtx.lineWidth = penSize;
+          traceCtx.lineCap = "round";
+          traceCtx.lineJoin = "round";
 
-    // draw completed strokes
-    for (let i = 0; i < strokeIndex; i++) {
-      const stroke = data.strokes[i];
-      if (!stroke || stroke.length < 2) continue;
-      traceCtx.beginPath();
-      stroke.forEach((pt, idx) => {
-        const x = pt.x * w;
-        const y = pt.y * h;
-        if (idx === 0) traceCtx.moveTo(x, y);
-        else traceCtx.lineTo(x, y);
-      });
-      traceCtx.stroke();
-    }
+          // draw completed strokes
+          for (let i = 0; i < strokeIndex; i++) {
+            const stroke = data.strokes[i];
+            if (!stroke || stroke.length < 2) continue;
+            traceCtx.beginPath();
+            stroke.forEach((pt, idx) => {
+              const x = pt.x * w;
+              const y = pt.y * h;
+              if (idx === 0) traceCtx.moveTo(x, y);
+              else traceCtx.lineTo(x, y);
+            });
+            traceCtx.stroke();
+          }
 
-    // draw current in-progress stroke
-    if (strokeIndex < data.strokes.length) {
-      const stroke = data.strokes[strokeIndex];
-      if (stroke && stroke.length >= 2) {
-        const steps = stroke.length - 1;
-        const total = Math.max(steps, 1);
-        const maxSegment = total * t;
-        const fullSegments = Math.floor(maxSegment);
-        const partial = maxSegment - fullSegments;
+          // draw current in-progress stroke
+          if (strokeIndex < data.strokes.length) {
+            const stroke = data.strokes[strokeIndex];
+            if (stroke && stroke.length >= 2) {
+              const steps = stroke.length - 1;
+              const total = Math.max(steps, 1);
+              const maxSegment = total * t;
+              const fullSegments = Math.floor(maxSegment);
+              const partial = maxSegment - fullSegments;
 
-        traceCtx.beginPath();
-        for (let i = 0; i <= fullSegments && i < stroke.length; i++) {
-          const x = stroke[i].x * w;
-          const y = stroke[i].y * h;
-          if (i === 0) traceCtx.moveTo(x, y);
-          else traceCtx.lineTo(x, y);
+              traceCtx.beginPath();
+              for (let i = 0; i <= fullSegments && i < stroke.length; i++) {
+                const x = stroke[i].x * w;
+                const y = stroke[i].y * h;
+                if (i === 0) traceCtx.moveTo(x, y);
+                else traceCtx.lineTo(x, y);
+              }
+              if (fullSegments < stroke.length - 1) {
+                const p1 = stroke[fullSegments];
+                const p2 = stroke[fullSegments + 1];
+                const x = (p1.x + (p2.x - p1.x) * partial) * w;
+                const y = (p1.y + (p2.y - p1.y) * partial) * h;
+                traceCtx.lineTo(x, y);
+              }
+              traceCtx.stroke();
+            }
+          }
+
+          traceCtx.restore();
+
+          t += demoSpeed;
+          if (t >= 1) {
+            t = 0;
+            strokeIndex++;
+            if (strokeIndex >= data.strokes.length) {
+              demoRunning = false;
+              return;
+            }
+          }
+          requestAnimationFrame(drawFrame);
         }
-        if (fullSegments < stroke.length - 1) {
-          const p1 = stroke[fullSegments];
-          const p2 = stroke[fullSegments + 1];
-          const x = (p1.x + (p2.x - p1.x) * partial) * w;
-          const y = (p1.y + (p2.y - p1.y) * partial) * h;
-          traceCtx.lineTo(x, y);
-        }
-        traceCtx.stroke();
+
+        requestAnimationFrame(drawFrame);
       }
-    }
-
-    traceCtx.restore();
-
-    t += demoSpeed;
-    if (t >= 1) {
-      t = 0;
-      strokeIndex++;
-      if (strokeIndex >= data.strokes.length) {
-        demoRunning = false;
-        return;
-      }
-    }
-    requestAnimationFrame(drawFrame);
-  }
-
-  requestAnimationFrame(drawFrame);
-}
-
-
-  function drawFrame() {
-    if (!demoRunning) return;
-    clearCanvas(true);
-
-    traceCtx.save();
-    traceCtx.strokeStyle = "#e35b5b";
-    traceCtx.lineWidth = penSize;
-    traceCtx.lineCap = "round";
-    traceCtx.lineJoin = "round";
-
-    // completed strokes
-    for (let i = 0; i < strokeIndex; i++) {
-      const stroke = data.strokes[i];
-      if (!stroke || stroke.length < 2) continue;
-      traceCtx.beginPath();
-      stroke.forEach((pt, idx) => {
-        const mapped = mapPoint(pt);
-        if (idx === 0) traceCtx.moveTo(mapped.x, mapped.y);
-        else traceCtx.lineTo(mapped.x, mapped.y);
-      });
-      traceCtx.stroke();
-    }
-
-    // current stroke
-    if (strokeIndex < data.strokes.length) {
-      const stroke = data.strokes[strokeIndex];
-      if (stroke && stroke.length >= 2) {
-        const steps = stroke.length - 1;
-        const total = Math.max(steps, 1);
-        const maxSegment = total * t;
-        const fullSegments = Math.floor(maxSegment);
-        const partial = maxSegment - fullSegments;
-
-        traceCtx.beginPath();
-        for (let i = 0; i <= fullSegments && i < stroke.length; i++) {
-          const mapped = mapPoint(stroke[i]);
-          if (i === 0) traceCtx.moveTo(mapped.x, mapped.y);
-          else traceCtx.lineTo(mapped.x, mapped.y);
-        }
-        if (fullSegments < stroke.length - 1) {
-          const p1 = mapPoint(stroke[fullSegments]);
-          const p2 = mapPoint(stroke[fullSegments + 1]);
-          const x = p1.x + (p2.x - p1.x) * partial;
-          const y = p1.y + (p2.y - p1.y) * partial;
-          traceCtx.lineTo(x, y);
-        }
-        traceCtx.stroke();
-      }
-    }
-
-    traceCtx.restore();
-
-    t += demoSpeed;
-    if (t >= 1) {
-      t = 0;
-      strokeIndex++;
-      if (strokeIndex >= data.strokes.length) {
-        demoRunning = false;
-        return;
-      }
-    }
-    requestAnimationFrame(drawFrame);
-  }
-
-  requestAnimationFrame(drawFrame);
-}
-
 
       function attachDrawEvents() {
         if (!traceCanvas) return;
