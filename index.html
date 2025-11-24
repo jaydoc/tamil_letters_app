@@ -135,15 +135,48 @@
       .mode-toggle input { accent-color: var(--accent); }
 
       .trace-canvas-wrap {
-        position: relative; border-radius: 1.2rem; overflow: hidden;
-        background: repeating-linear-gradient(
-          0deg, #f9f9ff, #f9f9ff 10px, #eef1ff 10px, #eef1ff 20px
-        );
-        border: 1px solid #dde0ff;
+        margin-top: 0.75rem;
+        border-radius: 1rem;
+        background: #f9f9ff;
+        padding: 0.75rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: stretch;
       }
+
+      .trace-letter-big {
+        flex: 0 0 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(80px, 18vw, 140px);
+        border-radius: 0.75rem;
+        background: #eef0ff;
+        color: #2d2f7f;
+        padding: 0.25rem 0.5rem;
+      }
+
+      .trace-canvas-wrap canvas#traceCanvas {
+        flex: 1 1 200px;
+        border-radius: 0.75rem;
+        background: white;
+      }
+
+      @media (max-width: 700px) {
+        .trace-canvas-wrap {
+          flex-direction: column;
+        }
+        .trace-letter-big {
+          align-self: center;
+        }
+      }
+
       canvas#traceCanvas {
         width: 100%;
-        height: 340px;       /* more vertical room on desktop/tablet */
+        height: 340px;
         touch-action: none;
         display: block;
       }
@@ -186,7 +219,6 @@
       footer { margin-top: 1.4rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
       .small { font-size: 0.8rem; }
 
-      /* Name modal */
       .modal-backdrop {
         position: fixed; inset: 0;
         background: rgba(0,0,0,0.45);
@@ -235,7 +267,7 @@
       @media (max-width: 480px) {
         .title { font-size: 1.8rem; }
         canvas#traceCanvas {
-          height: 280px;     /* phones get more room than before too */
+          height: 280px;
         }
       }
     </style>
@@ -272,7 +304,6 @@
       </footer>
     </div>
 
-    <!-- Child name modal -->
     <div id="nameModal" class="modal-backdrop hidden">
       <div class="modal">
         <h2>வணக்கம்! 😊</h2>
@@ -282,11 +313,9 @@
       </div>
     </div>
 
-    <!-- external stroke data -->
     <script src="strokes.js"></script>
 
     <script>
-      // ---- Data ----
       const UYIR = [
         { id: "a",  tamil: "அ", translit: "a",  audioId: "a"  },
         { id: "aa", tamil: "ஆ", translit: "aa", audioId: "aa" },
@@ -325,7 +354,6 @@
 
       const ALL = [...UYIR, ...MEI];
 
-      // ---- Stroke data: base from strokes.js, then override/extend from localStorage ----
       let STROKE_DATA = (window.TAMIL_STROKE_DATA || {});
       try {
         const stored = localStorage.getItem("tamilStrokeData");
@@ -347,8 +375,6 @@
         }
       }
 
-      // ---- Kid profile + stars + creator mode ----
-      // use sessionStorage so name does not persist across browser sessions
       let kidName = (sessionStorage.getItem("kidName") || "").trim();
       let starCount = parseInt(localStorage.getItem("kidStars") || "0", 10) || 0;
       let creatorMode = false;
@@ -375,7 +401,7 @@
         const pill = document.getElementById("stars-pill");
         if (!pill) return;
         pill.classList.remove("pop");
-        void pill.offsetWidth; // force reflow
+        void pill.offsetWidth;
         pill.classList.add("pop");
       }
 
@@ -414,7 +440,6 @@
         };
       }
 
-      // Hidden creator mode: double-click title
       const appTitle = document.getElementById("appTitle");
       appTitle.addEventListener("dblclick", () => {
         creatorMode = !creatorMode;
@@ -423,7 +448,6 @@
         } else {
           console.log("Creator mode OFF");
         }
-        // re-render current tab so trace UI updates
         if (currentTab === "uyir") renderLetters(UYIR, "Uyir Ezhuthukkal");
         else if (currentTab === "mei") renderLetters(MEI, "Mei Ezhuthukkal");
         else if (currentTab === "trace") renderTrace();
@@ -431,7 +455,6 @@
         else if (currentTab === "activities") renderActivities();
       });
 
-      // ---- Audio helper ----
       const audioCache = {};
       function playSound(audioId) {
         const src = "audio/" + audioId + ".mp3";
@@ -445,7 +468,6 @@
         });
       }
 
-      // ---- Tabs ----
       tabButtons.forEach(btn => {
         btn.addEventListener("click", () => {
           tabButtons.forEach(b => b.classList.remove("active"));
@@ -500,7 +522,6 @@
         contentEl.appendChild(grid);
       }
 
-      // ---- Game: Find the Sound ----
       let gameTarget = null;
       let options = [];
       let gameRound = 0;
@@ -570,7 +591,6 @@
         contentEl.appendChild(grid);
         contentEl.appendChild(feedback);
 
-        // start a fresh game
         gameRound = 0;
         gameCorrect = 0;
         gameOver = false;
@@ -635,7 +655,6 @@
         if (!gameTarget || !feedbackEl || gameOver) return;
 
         if (letter.id === gameTarget.id) {
-          // correct
           gameRound += 1;
           gameCorrect += 1;
           addStar();
@@ -652,7 +671,6 @@
             feedbackEl.textContent =
               `✅ சரி${namePart}! That was question ${gameRound} of ${ROUNDS_PER_GAME}. Tap “Next round” to continue.`;
             feedbackEl.className = "feedback ok";
-            // freeze this round; Next round must be tapped
             gameTarget = null;
           }
         } else {
@@ -662,7 +680,6 @@
         }
       }
 
-      // ---- Activities: H5P vowel sorting embed ----
       function renderActivities() {
         contentEl.innerHTML = "";
         const h = document.createElement("h2");
@@ -696,18 +713,28 @@
         }
       }
 
-      // ---- Tracing + Creator mode for strokes ----
+      // --- Tracing + Creator mode ---
+
       let traceCanvas, traceCtx;
       let isDrawing = false;
-      let lastX = 0, lastY = 0;
-      let currentTraceIndex = 0;
-      const TRACE_LIST = UYIR; // later can expand to [...UYIR, ...MEI]
-      let teacherMode = false;
-      let recording = false;
+      let currentStroke = [];
       let recordedStrokes = [];
+      let lastX = 0, lastY = 0;
+
+      let currentTraceIndex = 0;
+      let currentTraceSet = "uyir"; // "uyir" or "mei"
+
+      let teacherMode = false;
       let demoRunning = false;
-      let demoSpeed = 0.015;
+
+      let demoSpeed = parseFloat(localStorage.getItem("demoSpeed") || "0.009");
+      if (isNaN(demoSpeed) || demoSpeed <= 0) demoSpeed = 0.009;
+
       let penSize = parseInt(localStorage.getItem("penSize") || "6", 10);
+
+      function getTraceList() {
+        return currentTraceSet === "mei" ? MEI : UYIR;
+      }
 
       function renderTrace() {
         contentEl.innerHTML = "";
@@ -748,6 +775,49 @@
         topRow.appendChild(letterLabel);
         topRow.appendChild(modeToggle);
 
+        // Uyir / Mei toggle inside Trace
+        const setToggle = document.createElement("div");
+        setToggle.style.display = "flex";
+        setToggle.style.flexWrap = "wrap";
+        setToggle.style.gap = "0.25rem";
+
+        const uyirBtn = document.createElement("button");
+        uyirBtn.className = "btn";
+        uyirBtn.textContent = "Vowels";
+
+        const meiBtn = document.createElement("button");
+        meiBtn.className = "btn";
+        meiBtn.textContent = "Consonants";
+
+        const updateTraceSetButtons = () => {
+          if (currentTraceSet === "uyir") {
+            uyirBtn.classList.add("btn-primary");
+            meiBtn.classList.remove("btn-primary");
+          } else {
+            meiBtn.classList.add("btn-primary");
+            uyirBtn.classList.remove("btn-primary");
+          }
+        };
+
+        uyirBtn.addEventListener("click", () => {
+          currentTraceSet = "uyir";
+          currentTraceIndex = 0;
+          updateTraceSetButtons();
+          setupCanvasForCurrent(true);
+        });
+
+        meiBtn.addEventListener("click", () => {
+          currentTraceSet = "mei";
+          currentTraceIndex = 0;
+          updateTraceSetButtons();
+          setupCanvasForCurrent(true);
+        });
+
+        updateTraceSetButtons();
+        setToggle.appendChild(uyirBtn);
+        setToggle.appendChild(meiBtn);
+        topRow.appendChild(setToggle);
+
         const controls = document.createElement("div");
         controls.className = "controls";
 
@@ -755,7 +825,8 @@
         prevBtn.className = "btn btn-ghost";
         prevBtn.textContent = "← Previous";
         prevBtn.addEventListener("click", () => {
-          currentTraceIndex = (currentTraceIndex - 1 + TRACE_LIST.length) % TRACE_LIST.length;
+          const list = getTraceList();
+          currentTraceIndex = (currentTraceIndex - 1 + list.length) % list.length;
           setupCanvasForCurrent(false);
         });
 
@@ -763,7 +834,8 @@
         nextBtn.className = "btn btn-ghost";
         nextBtn.textContent = "Next →";
         nextBtn.addEventListener("click", () => {
-          currentTraceIndex = (currentTraceIndex + 1) % TRACE_LIST.length;
+          const list = getTraceList();
+          currentTraceIndex = (currentTraceIndex + 1) % list.length;
           setupCanvasForCurrent(false);
         });
 
@@ -785,7 +857,6 @@
           }
         });
 
-        // Pen size control
         const penSizeLabel = document.createElement("span");
         penSizeLabel.style.fontSize = "0.8rem";
         penSizeLabel.textContent = "Pen size:";
@@ -840,12 +911,55 @@
         controls.appendChild(demoBtn);
         controls.appendChild(clearBtn);
         controls.appendChild(penSizeWrapper);
+
+        // Demo speed control (slower by default, adjustable)
+        const speedWrapper = document.createElement("div");
+        speedWrapper.style.display = "inline-flex";
+        speedWrapper.style.alignItems = "center";
+        speedWrapper.style.gap = "0.25rem";
+
+        const speedLabel = document.createElement("span");
+        speedLabel.style.fontSize = "0.8rem";
+        speedLabel.textContent = "Demo speed:";
+
+        const speedInput = document.createElement("input");
+        speedInput.type = "range";
+        speedInput.min = "1";
+        speedInput.max = "5";
+        speedInput.step = "1";
+
+        let currentSpeedValue = 3;
+        if (demoSpeed <= 0.006) currentSpeedValue = 1;
+        else if (demoSpeed <= 0.008) currentSpeedValue = 2;
+        else if (demoSpeed <= 0.010) currentSpeedValue = 3;
+        else if (demoSpeed <= 0.013) currentSpeedValue = 4;
+        else currentSpeedValue = 5;
+        speedInput.value = String(currentSpeedValue);
+
+        speedInput.addEventListener("input", () => {
+          const v = parseInt(speedInput.value, 10) || 3;
+          demoSpeed = 0.003 + v * 0.003;
+          localStorage.setItem("demoSpeed", String(demoSpeed));
+        });
+
+        speedWrapper.appendChild(speedLabel);
+        speedWrapper.appendChild(speedInput);
+        controls.appendChild(speedWrapper);
+
         controls.appendChild(recordBtn);
 
         const canvasWrap = document.createElement("div");
         canvasWrap.className = "trace-canvas-wrap";
+
+        const sampleBox = document.createElement("div");
+        sampleBox.id = "traceSampleLetter";
+        sampleBox.className = "trace-letter-big";
+        sampleBox.textContent = getCurrentLetter().tamil;
+
         const canvas = document.createElement("canvas");
         canvas.id = "traceCanvas";
+
+        canvasWrap.appendChild(sampleBox);
         canvasWrap.appendChild(canvas);
 
         const infoRow = document.createElement("div");
@@ -886,7 +1000,6 @@
         updateExportBox();
         updateTeacherUI();
 
-        // Creator mode visibility
         if (!creatorMode) {
           modeToggle.style.display = "none";
           recordBtn.style.display = "none";
@@ -908,7 +1021,8 @@
       }
 
       function getCurrentLetter() {
-        return TRACE_LIST[currentTraceIndex];
+        const list = getTraceList();
+        return list[currentTraceIndex] || list[0];
       }
 
       function updateTeacherUI() {
@@ -967,31 +1081,18 @@
           traceCtx.lineTo(w, y);
           traceCtx.stroke();
         });
-        if (keepSample) {
-          drawSampleLetter(0.18);
-        }
-      }
-
-      function drawSampleLetter(alpha) {
-        if (!traceCtx || !traceCanvas) return;
-        const letter = getCurrentLetter();
-        traceCtx.save();
-        traceCtx.globalAlpha = alpha;
-        const h = traceCanvas.height;
-        const w = traceCanvas.width;
-        // slightly smaller + a bit higher to keep bottom tails visible
-        const fontSize = Math.min(w, h) * 0.6;
-        traceCtx.font = fontSize + "px 'Noto Sans Tamil', 'Latha', 'Arial Unicode MS', serif";
-        traceCtx.textAlign = "center";
-        traceCtx.textBaseline = "middle";
-        traceCtx.fillStyle = "#5555aa";
-        traceCtx.fillText(letter.tamil, w / 2, h * 0.48);
-        traceCtx.restore();
       }
 
       function setupCanvasForCurrent(runDemoFirst) {
         updateLetterLabel();
         clearCanvas(true);
+
+        const letter = getCurrentLetter();
+        const sampleBox = document.getElementById("traceSampleLetter");
+        if (sampleBox) {
+          sampleBox.textContent = letter.tamil;
+        }
+
         updateTeacherUI();
         if (runDemoFirst) {
           runDemoForCurrent();
@@ -1028,7 +1129,6 @@
           traceCtx.lineCap = "round";
           traceCtx.lineJoin = "round";
 
-          // draw completed strokes
           for (let i = 0; i < strokeIndex; i++) {
             const stroke = data.strokes[i];
             if (!stroke || stroke.length < 2) continue;
@@ -1042,7 +1142,6 @@
             traceCtx.stroke();
           }
 
-          // draw current in-progress stroke
           if (strokeIndex < data.strokes.length) {
             const stroke = data.strokes[strokeIndex];
             if (stroke && stroke.length >= 2) {
@@ -1151,7 +1250,6 @@
         };
       }
 
-      // --- smoothing for creator-recorded strokes ---
       function smoothStroke(stroke) {
         if (!stroke || stroke.length <= 3) return stroke;
 
@@ -1184,7 +1282,6 @@
         return decimated;
       }
 
-      // ---- initial screen ----
       initKidProfile();
       updateKidUI();
       renderLetters(UYIR, "Uyir Ezhuthukkal");
