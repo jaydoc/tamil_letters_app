@@ -134,6 +134,7 @@
       }
       .mode-toggle input { accent-color: var(--accent); }
 
+      /* TRACE LAYOUT: letter on top, big canvas at bottom */
       .trace-canvas-wrap {
         margin-top: 0.75rem;
         border-radius: 1rem;
@@ -142,43 +143,36 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.06);
 
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
+        flex-direction: column;
         align-items: stretch;
+        gap: 0.5rem;
       }
 
       .trace-letter-big {
-        flex: 0 0 120px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: clamp(80px, 18vw, 140px);
+        font-size: clamp(72px, 16vw, 120px);
         border-radius: 0.75rem;
         background: #eef0ff;
         color: #2d2f7f;
         padding: 0.25rem 0.5rem;
-      }
-
-      .trace-canvas-wrap canvas#traceCanvas {
-        flex: 1 1 200px;
-        border-radius: 0.75rem;
-        background: white;
-      }
-
-      @media (max-width: 700px) {
-        .trace-canvas-wrap {
-          flex-direction: column;
-        }
-        .trace-letter-big {
-          align-self: center;
-        }
+        min-height: 120px;
       }
 
       canvas#traceCanvas {
         width: 100%;
-        height: 340px;
+        height: 420px;
         touch-action: none;
         display: block;
+        border-radius: 0.75rem;
+        background: white;
+      }
+
+      @media (max-width: 480px) {
+        canvas#traceCanvas {
+          height: 320px;
+        }
       }
 
       .trace-info {
@@ -266,9 +260,6 @@
 
       @media (max-width: 480px) {
         .title { font-size: 1.8rem; }
-        canvas#traceCanvas {
-          height: 280px;
-        }
       }
     </style>
   </head>
@@ -354,7 +345,11 @@
 
       const ALL = [...UYIR, ...MEI];
 
+      // Base strokes from strokes.js
       let STROKE_DATA = (window.TAMIL_STROKE_DATA || {});
+      const BASE_STROKE_DATA = JSON.parse(JSON.stringify(STROKE_DATA));
+
+      // Merge in saved local strokes
       try {
         const stored = localStorage.getItem("tamilStrokeData");
         if (stored) {
@@ -373,6 +368,16 @@
         } catch (e) {
           console.warn("Could not save stroke data:", e);
         }
+      }
+
+      function resetAllStrokes() {
+        // Reset both in memory and in localStorage
+        STROKE_DATA = JSON.parse(JSON.stringify(BASE_STROKE_DATA));
+        localStorage.removeItem("tamilStrokeData");
+        updateExportBox();
+        updateTeacherUI();
+        clearCanvas(true);
+        console.log("All saved strokes cleared for this browser.");
       }
 
       let kidName = (sessionStorage.getItem("kidName") || "").trim();
@@ -726,6 +731,7 @@
 
       let teacherMode = false;
       let demoRunning = false;
+      let recording = false;
 
       let demoSpeed = parseFloat(localStorage.getItem("demoSpeed") || "0.009");
       if (isNaN(demoSpeed) || demoSpeed <= 0) demoSpeed = 0.009;
@@ -751,7 +757,7 @@
           hint.textContent = "First watch the pink demo, then trace the letter.";
         }
         if (creatorMode) {
-          hint.textContent += " (Creator mode: you can record or update strokes.)";
+          hint.textContent += " (Creator mode: you can record or reset strokes.)";
         }
 
         const wrapper = document.createElement("div");
@@ -906,13 +912,23 @@
           }
         });
 
+        // Reset button (creator only)
+        const resetAllBtn = document.createElement("button");
+        resetAllBtn.className = "btn btn-ghost";
+        resetAllBtn.textContent = "Reset ALL saved strokes (this browser)";
+        resetAllBtn.addEventListener("click", () => {
+          if (!creatorMode) return;
+          if (!confirm("Reset all saved strokes on this browser? This cannot be undone.")) return;
+          resetAllStrokes();
+        });
+
         controls.appendChild(prevBtn);
         controls.appendChild(nextBtn);
         controls.appendChild(demoBtn);
         controls.appendChild(clearBtn);
         controls.appendChild(penSizeWrapper);
 
-        // Demo speed control (slower by default, adjustable)
+        // Demo speed control
         const speedWrapper = document.createElement("div");
         speedWrapper.style.display = "inline-flex";
         speedWrapper.style.alignItems = "center";
@@ -947,6 +963,7 @@
         controls.appendChild(speedWrapper);
 
         controls.appendChild(recordBtn);
+        controls.appendChild(resetAllBtn);
 
         const canvasWrap = document.createElement("div");
         canvasWrap.className = "trace-canvas-wrap";
@@ -965,7 +982,7 @@
         const infoRow = document.createElement("div");
         infoRow.className = "trace-info";
         const infoLeft = document.createElement("div");
-        infoLeft.textContent = "Tip: first watch the pink demo, then copy it with your finger.";
+        infoLeft.textContent = "Tip: watch the pink demo at the top, then copy it on the big canvas.";
         const infoRight = document.createElement("div");
         infoRight.id = "stroke-status";
         infoRight.textContent = "";
@@ -1003,11 +1020,13 @@
         if (!creatorMode) {
           modeToggle.style.display = "none";
           recordBtn.style.display = "none";
+          resetAllBtn.style.display = "none";
           exportBox.style.display = "none";
           teacherMode = false;
         } else {
           modeToggle.style.display = "inline-flex";
           recordBtn.style.display = "inline-flex";
+          resetAllBtn.style.display = "inline-flex";
           exportBox.style.display = "block";
           modeCheckbox.checked = teacherMode;
           modeCheckbox.addEventListener("change", () => {
